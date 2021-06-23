@@ -1,7 +1,5 @@
 # storybot
 APPDEVCS Project using FastAPI as backend
-# InfiniteAI created by nimbly
-
 ## - a backstory generation application for your fantasy characters!
 
 ###### Main Functionalities
