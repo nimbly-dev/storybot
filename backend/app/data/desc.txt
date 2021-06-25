@@ -1,0 +1,6 @@
+Structure: 
+
+    1. names
+        * elf_names (ELF_NAMES_MALE)
+
+

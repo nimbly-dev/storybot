@@ -4,10 +4,11 @@ from sqlalchemy.orm import sessionmaker
 
 
 # SQL DB FILE HERE
-SQLACHEMY_DATABASE_URL = 'sqlite:///app/storybot.db'
+SQLACHEMY_DATABASE_URL = "sqlite:///app/storybot.db"
 
-engine = create_engine(SQLACHEMY_DATABASE_URL,
-                       connect_args={"check_same_thread": False})
+engine = create_engine(
+    SQLACHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 
 SessionLocal = sessionmaker(
     bind=engine,

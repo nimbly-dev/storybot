@@ -11,6 +11,7 @@ bcrypt = "*"
 python-jose = "*"
 python-multipart = "*"
 SQLAlchemy = "*"
+black = "*"
 
 [dev-packages]
 

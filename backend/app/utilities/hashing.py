@@ -1,11 +1,11 @@
 from passlib.context import CryptContext
 
-#GET THE ALGORITHM FOR HASHING
+# GET THE ALGORITHM FOR HASHING
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-#CLASS FOR HASH USING "bcrpyt"
-class Hash():
+# CLASS FOR HASH USING "bcrpyt"
+class Hash:
     def bcrpyt(password: str):
         return password_context.hash(password)
 
