@@ -4,18 +4,21 @@ from typing import List
 from sqlalchemy.orm import Session
 
 from app.utilities import database, hashing, oauth2
-from app.model import schemas, db_models
-
+from app.model import db_models
+from app.model.schema.users import User
+from app.model.schema.background_story import (
+    BackgroundStory,
+    ShowBackgroundStory,
+    ShowAllBackgroundStoryUser,
+)
 
 router = APIRouter(prefix="/background-story", tags={"Background-Story"})
 
 # Get all background story of user
-@router.get(
-    "/", status_code=200, response_model=List[schemas.ShowAllBackgroundStoryUser]
-)
+@router.get("/", status_code=200, response_model=List[ShowAllBackgroundStoryUser])
 def get_all_background_story(
     db: Session = Depends(database.get_db),
-    current_user: schemas.User = Depends(oauth2.get_current_user),
+    current_user: User = Depends(oauth2.get_current_user),
 ):
     user_background_story = db.query(db_models.BackgroundStory).all()
     return user_background_story
@@ -24,16 +27,16 @@ def get_all_background_story(
 # creates a background story for the user
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_background_story(
-    request: schemas.BackgroundStory,
+    request: BackgroundStory,
     db: Session = Depends(database.get_db),
-    current_user: schemas.User = Depends(oauth2.get_current_user),
+    current_user: User = Depends(oauth2.get_current_user),
 ):
     new_background_story = db_models.BackgroundStory(
         title=request.title,
         body=request.body,
         character_name=request.body,
         is_shared=request.is_shared,
-        user_id=request.user_id,
+        user_id=request.id,
     )
     db.add(new_background_story)
     db.commit()
@@ -42,13 +45,11 @@ def create_background_story(
 
 
 # Gets the background story by id
-@router.get(
-    "/{id}", status_code=status.HTTP_200_OK, response_model=schemas.ShowBackgroundStory
-)
+@router.get("/{id}", status_code=status.HTTP_200_OK, response_model=ShowBackgroundStory)
 def get_background_story(
     id,
     db: Session = Depends(database.get_db),
-    current_user: schemas.User = Depends(oauth2.get_current_user),
+    current_user: User = Depends(oauth2.get_current_user),
 ):
     background_story = (
         db.query(db_models.BackgroundStory)
@@ -67,9 +68,9 @@ def get_background_story(
 @router.put("/{id}", status_code=status.HTTP_202_ACCEPTED)
 def update(
     id,
-    request: schemas.BackgroundStory,
+    request: BackgroundStory,
     db: Session = Depends(database.get_db),
-    current_user: schemas.User = Depends(oauth2.get_current_user),
+    current_user: User = Depends(oauth2.get_current_user),
 ):
     background_story = db.query(db_models.BackgroundStory).filter(
         db_models.BackgroundStory.id == id
@@ -97,7 +98,7 @@ def update(
 def destroy(
     id,
     db: Session = Depends(database.get_db),
-    current_user: schemas.User = Depends(oauth2.get_current_user),
+    current_user: User = Depends(oauth2.get_current_user),
 ):
     background_story = db.query(db_models.BackgroundStory).filter(
         db_models.BackgroundStory.id == id
