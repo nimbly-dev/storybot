@@ -26,6 +26,16 @@ class ShowAllBackgroundStoryUser(BaseModel):
         orm_mode = True
 
 
+# Schema for showing shared background story of users
+class ShowSharedBackgroundStories(BaseModel):
+    title: str
+    body: str
+    character_name: str
+
+    class Config:
+        orm_mode = True
+
+
 # Schema for showing specific background story by id
 class ShowBackgroundStory(BaseModel):
     title: str
