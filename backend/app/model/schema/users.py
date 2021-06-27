@@ -5,6 +5,7 @@ from app.model.schema.background_story import BackgroundStory
 
 # Schema for User obj
 class User(BaseModel):
+    id: int
     username: str
     password: str
     email: str

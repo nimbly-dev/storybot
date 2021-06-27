@@ -3,7 +3,7 @@ from pydantic import BaseModel, fields
 
 # Schema for base backgroundstorybase
 class BackgroundStoryBase(BaseModel):
-    id: int
+    user_id: int
     title: str
     body: str
     character_name: str

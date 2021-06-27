@@ -3,6 +3,7 @@ from fastapi.params import Depends
 from typing import List
 from sqlalchemy.orm import Session
 
+
 from app.utilities import database, hashing, oauth2
 from app.model import db_models
 from app.model.schema.users import User
@@ -15,7 +16,7 @@ from app.model.schema.background_story import (
 router = APIRouter(prefix="/background-story", tags={"Background-Story"})
 
 # Get all background story of user
-@router.get("/", status_code=200, response_model=List[ShowAllBackgroundStoryUser])
+@router.get("/", status_code=200, response_model=List[BackgroundStory])
 def get_all_background_story(
     db: Session = Depends(database.get_db),
     current_user: User = Depends(oauth2.get_current_user),
@@ -29,14 +30,15 @@ def get_all_background_story(
 def create_background_story(
     request: BackgroundStory,
     db: Session = Depends(database.get_db),
-    current_user: User = Depends(oauth2.get_current_user),
+    current_user: db_models.User = Depends(oauth2.get_current_user),
 ):
+    print(id)
     new_background_story = db_models.BackgroundStory(
         title=request.title,
         body=request.body,
         character_name=request.body,
         is_shared=request.is_shared,
-        user_id=request.id,
+        user_id=current_user.id,
     )
     db.add(new_background_story)
     db.commit()
@@ -61,6 +63,11 @@ def get_background_story(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Background story with the id {id} is not found",
         )
+    if current_user.id != background_story.user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"You do not have access to this background story",
+        )
     return background_story
 
 
@@ -79,6 +86,11 @@ def update(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Background story with id {id} is not found",
+        )
+    if current_user.id != background_story.first().user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"You do not have access to this background story",
         )
 
     background_story.update(
@@ -108,6 +120,11 @@ def destroy(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Background story with id {id} not found",
+        )
+    if current_user.id != background_story.first().user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"You do not have access to this background story",
         )
 
     background_story.delete(synchronize_session=False)

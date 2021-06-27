@@ -1,9 +1,10 @@
+from app.model.schema.authentication import TokenData
 from app import routers
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Request
 from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
-from app.utilities import database, hashing
+from app.utilities import database, hashing, oauth2
 
 from app.model import db_models
 from app.model.schema.users import ShowUser, User

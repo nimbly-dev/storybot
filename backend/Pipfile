@@ -12,6 +12,7 @@ python-jose = "*"
 python-multipart = "*"
 SQLAlchemy = "*"
 black = "*"
+pyjwt = "*"
 
 [dev-packages]
 
