@@ -12,13 +12,13 @@ const Login = (
                     <h1 className='col-12'>Welcome</h1>
                     <form className='mt-4'>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Username</label>
-                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            <label for="usernameInput">Username</label>
+                            <input type="text" className="form-control" id="usernameInput"
                             placeholder="Enter email"/>
                             
-                            <label for="exampleInputEmail1" className='mt-4'>Password</label>
-                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email"/>
+                            <label for="passwordInput" className='mt-4'>Password</label>
+                            <input type="text" className="form-control" id="passwordInput"
+                            placeholder="Enter password"/>
 
                             <medium id="emailHelp" className="form-text text-muted mt-4">Error Text Here</medium>
                         </div>

@@ -18,8 +18,11 @@ body{
     margin-left: 200px;
 }
 
+#register-form{
+    margin-top: 80px;
+    margin-left: 200px;
+}
 
-
-h1{
-    font-size: 70px;
+main > section > div .header-register{
+    font-size: 60px;
 }
