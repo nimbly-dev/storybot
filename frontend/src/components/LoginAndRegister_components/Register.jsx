@@ -2,7 +2,9 @@ import React from 'react';
 
 
 const Register = (
-
+{
+    handleAnchorRegister
+}
 )=>{
     return(
         <section className='container d-flex justify-content-end' id='register-form'>
@@ -31,7 +33,7 @@ const Register = (
                     <medium id="emailHelp" className="form-text text-muted mt-4">Error Text Here</medium>
                 </div>
                 <button type="submit" className="btn btn-primary">Register</button>
-                <a href='' className='col-12'>Already have an account? Sign in now!</a>
+                <a href='#login'  onClick={handleAnchorRegister} className='col-12'>Already have an account? Sign in now!</a>
             </form>
         </div>
     </section>

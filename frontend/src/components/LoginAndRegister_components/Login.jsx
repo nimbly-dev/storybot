@@ -3,7 +3,8 @@ import React from 'react';
 
 const Login = (
     {
-        RobotIconURL
+        goToRegister,
+        handleAnchorRegister
     }
 )=>{
     return(
@@ -20,10 +21,10 @@ const Login = (
                             <input type="text" className="form-control" id="passwordInput"
                             placeholder="Enter password"/>
 
-                            <medium id="emailHelp" className="form-text text-muted mt-4">Error Text Here</medium>
+                            <text id="emailHelp" className="form-text text-muted mt-4">Error Text Here</text>
                         </div>
                         <button type="submit" className="btn btn-primary">Login</button>
-                        <a href='' className='col-12'>Don't have a account? Sign up now!</a>
+                        <a href='#register' className='col-12' onClick={handleAnchorRegister} >Don't have a account? Sign up now!</a>
                     </form>
                 </div>
             </section>
