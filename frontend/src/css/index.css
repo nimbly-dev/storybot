@@ -1,0 +1,25 @@
+body{
+    background-color: #000000;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+
+.robot-icon{
+    position: absolute;
+    width: 449px;
+    height: 637px;
+    left: 70px;
+    top: 230px;
+    border-radius: 0px;
+}
+
+#login-form{
+    margin-top: 100px;
+    margin-left: 200px;
+}
+
+
+
+h1{
+    font-size: 70px;
+}
