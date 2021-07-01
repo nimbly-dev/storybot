@@ -1,4 +1,3 @@
-import { findAllByDisplayValue } from '@testing-library/react'
 import React, {useState} from 'react'
 
 
@@ -7,7 +6,7 @@ import React, {useState} from 'react'
 import Login from './LoginAndRegister_components/Login'
 import Register from './LoginAndRegister_components/Register'
 
-const LoginAndRegister = ()=>{
+const LoginAndRegister = ({handleLoginAndLogout})=>{
     const [isRegister, setIsRegister] = useState(false)
 
     const handleAnchorRegister = () =>{
@@ -21,7 +20,7 @@ const LoginAndRegister = ()=>{
     }
 
     if (isRegister === false){
-        return <Login handleAnchorRegister={handleAnchorRegister}/>
+        return <Login handleAnchorRegister={handleAnchorRegister} handleLoginAndLogout={handleLoginAndLogout}/>
     }else {
        return <Register handleAnchorRegister={handleAnchorRegister}/>
     }
