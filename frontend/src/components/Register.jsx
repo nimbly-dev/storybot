@@ -1,10 +1,8 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom'
 
 const Register = (
-{
-    handleAnchorRegister
-}
+
 )=>{
     return(
         <section className='container d-flex justify-content-end' id='register-form'>
@@ -33,7 +31,9 @@ const Register = (
                     <medium id="emailHelp" className="form-text text-muted mt-4">Error Text Here</medium>
                 </div>
                 <button type="submit" className="btn btn-primary">Register</button>
-                <a href='#login'  onClick={handleAnchorRegister} className='col-12'>Already have an account? Sign in now!</a>
+                <Link to='/login'>
+                    <a href='#login'  className='col-12'>Already have an account? Sign in now!</a>
+                </Link>
             </form>
         </div>
     </section>

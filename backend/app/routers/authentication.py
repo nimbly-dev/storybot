@@ -36,12 +36,13 @@ def login(
     access_token = token.create_access_token(
         data={"sub": user.username, "user_id": user.id}
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {
+        "username": user.username,
+        "access_token": access_token,
+        "token_type": "bearer",
+    }
 
 
-@router.get("/users/me")
-async def read_users_me(
-    current_user: User = Depends(oauth2.get_current_user),
-    db: Session = Depends(database.get_db),
-):
-    return current_user.id
+@router.get("/test")
+async def read_users_me():
+    return {"Desc": "Hello world"}

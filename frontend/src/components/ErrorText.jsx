@@ -5,7 +5,9 @@ const ErrorText = ({
     hasErrors
 })=>{
     if (hasErrors === true){
-        return(<text id="errorHelp" className="form-text text-muted mt-4">{errorText}</text>)
+        return(
+            <p id="errorHelp" className="form-text text-muted mt-4">{errorText}</p>
+        )
     }else{
         return null
     }
