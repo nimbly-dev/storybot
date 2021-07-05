@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useHistory, useLocation } from 'react-router-dom'
+import {Link, useHistory, useLocation, Route, Redirect } from 'react-router-dom'
 
 //Import 3rd party libraries
 import axios from 'axios';
@@ -25,6 +25,8 @@ const Login = (
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    const [loginData, setLoginData] = useState([])
 
     const handleTestLogin = (event)=>{
         event.preventDefault()
@@ -55,8 +57,11 @@ const Login = (
             }
             const result = response.data
 
+            localStorage.setItem('isAuthenticated',true)
+            const { from } = location.state || { from: { pathname: "/userprofile" } };
+            history.replace(from)
+            console.log(result)
             handleLoginData(result)
-            history.push('/userprofile/'+username)
         })
         .catch((error)=>{
             if (error.response) {
@@ -102,14 +107,13 @@ const Login = (
                         <button 
                         type="submit" 
                         className="btn btn-primary"
-                      
                         >
                             Login
                         </button>
-                        <Link to="/register">
-                        <a href='#register' 
-                        className='col-12' >Don't have a account? Sign up now!
-                        </a>
+                        <Link to="/login">
+                            <a href='#register' 
+                            className='col-12' >Don't have a account? Sign up now!
+                            </a>
                         </Link>
                     </form>
                 </div>

@@ -1,28 +1,29 @@
 import React from 'react'
 
-import {Link, useHistory} from 'react-router-dom'
+import {Link,Redirect, useHistory} from 'react-router-dom'
 
 const UserProfile = (
-    {handleLoginAndLogout
-    ,loginData
+    {
+    token
     }
 )=>{
-    const history = useHistory();
-    console.log(loginData)
+    console.log(token)
 
-    if (loginData !== null)
+    const handleLogout = ()=>{
+        localStorage.clear()
+        window.location.reload(false); 
+    }
+
+    if (token.username !== null)
         return(
             <section className='container d-flex justify-content-center'>
                 <div>
-                    <h3>You are now logged in {loginData.username}</h3>
-                    <button type="button" onClick={handleLoginAndLogout} className="btn btn-primary">Logout</button>
+                    <h3>You are now logged in {token.username}</h3>
+                    <button type="button" onClick={handleLogout} className="btn btn-primary">Logout</button>
                 </div>
             </section>
         )
-    else if(loginData === null){
-        history.push("/login")
-        return null
-    } 
+    
         
 }
 
