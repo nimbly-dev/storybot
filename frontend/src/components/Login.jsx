@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useHistory, useLocation, Route, Redirect } from 'react-router-dom'
+import React, {useState} from 'react';
+import {Link, useHistory, useLocation } from 'react-router-dom'
 
 //Import 3rd party libraries
 import axios from 'axios';
@@ -26,8 +26,6 @@ const Login = (
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [loginData, setLoginData] = useState([])
-
     const handleTestLogin = (event)=>{
         event.preventDefault()
         axiosLogin()
@@ -42,7 +40,7 @@ const Login = (
         let formdata = new FormData()
 
         formdata.append("username", username)
-        formdata.append("password",password)
+        formdata.append("password", password)
         
         axios.post(URL_ROUTERS.base_url_login,formdata)
         .then((response)=>{ 
@@ -85,7 +83,6 @@ const Login = (
                             type="text"
                             className="form-control" 
                             name="username"
-                            id="username"
                             placeholder='Enter username'
                             onChange={e=>setUsername(e.target.value)}
                             required
@@ -96,7 +93,6 @@ const Login = (
                             type="text" 
                             className="form-control" 
                             name="password"
-                            id="password"
                             placeholder='Enter password'
                             onChange={e=>setPassword(e.target.value)}
                             required
@@ -110,7 +106,7 @@ const Login = (
                         >
                             Login
                         </button>
-                        <Link to="/login">
+                        <Link to="/register">
                             <a href='#register' 
                             className='col-12' >Don't have a account? Sign up now!
                             </a>

@@ -7,14 +7,14 @@ from sqlalchemy.orm import Session
 from app.utilities import database, hashing, oauth2
 
 from app.model import db_models
-from app.model.schema.users import ShowUser, User
+from app.model.schema.users import ShowUser, User, CreateNewUser
 
 router = APIRouter(prefix="/user", tags={"Users"})
 
 
 # CREATING A USER
-@router.post("", response_model=ShowUser)
-def create_user(request: User, db: Session = Depends(database.get_db)):
+@router.post("")
+def create_user(request: CreateNewUser, db: Session = Depends(database.get_db)):
     new_user = db_models.User(
         username=request.username,
         password=hashing.Hash.bcrpyt(request.password),

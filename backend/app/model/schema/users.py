@@ -19,3 +19,10 @@ class ShowUser(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+# Schema for creating new User
+class CreateNewUser(BaseModel):
+    username: str
+    password: str
+    email: str

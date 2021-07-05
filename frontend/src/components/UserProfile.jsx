@@ -1,6 +1,5 @@
 import React from 'react'
 
-import {Link,Redirect, useHistory} from 'react-router-dom'
 
 const UserProfile = (
     {
