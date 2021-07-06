@@ -31,12 +31,9 @@ const Login = (
         axiosLogin()
     }
 
-    const axiosLogin =  () =>{
-        // let urlencoded = new URLSearchParams()
-        
-        // urlencoded.append("username", username)
-        // urlencoded.append("password", password)
+    const ROBOT_ICON_URL = 'https://i.pinimg.com/originals/a7/98/42/a79842bfa9a2d36047d3478a944b8506.gif'
 
+    const axiosLogin =  () =>{
         let formdata = new FormData()
 
         formdata.append("username", username)
@@ -56,6 +53,7 @@ const Login = (
             const result = response.data
 
             localStorage.setItem('isAuthenticated',true)
+            localStorage.setItem('token', JSON.stringify(result))
             const { from } = location.state || { from: { pathname: "/userprofile" } };
             history.replace(from)
             console.log(result)
@@ -74,6 +72,7 @@ const Login = (
 
     return(
         <section className='container d-flex justify-content-end' id='login-form'>
+                {/* <img src={ROBOT_ICON_URL} alt={'Hotdog'} className={'robot-icon'}/> */}
                 <div className='row'>
                     <h1 className='col-12'>Welcome</h1>
                     <form className='mt-4' onSubmit={(e)=>handleTestLogin(e)} id='login_form'>

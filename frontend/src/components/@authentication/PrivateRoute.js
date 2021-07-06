@@ -4,7 +4,6 @@ import {Redirect, Route, useLocation} from 'react-router-dom'
 const PrivateRoute = ({
     component: Component,
     path, 
-    token
 })=> {
     const location = useLocation();
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -15,7 +14,7 @@ const PrivateRoute = ({
         <Route 
             path={path}
             render={
-                 ()=><Component token={token}/>
+                 ()=><Component/>
             }
         />
     )   

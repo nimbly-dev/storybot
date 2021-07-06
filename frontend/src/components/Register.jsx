@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  } from 'react';
 import { useForm } from "react-hook-form";
 
 import {Link, useHistory,useLocation} from 'react-router-dom'
@@ -9,7 +9,7 @@ import * as yup from "yup";
 import axios from 'axios';
 
 //Import URL Paths
-import strings, { URL_ROUTERS } from "../utility/strings"
+import { URL_ROUTERS } from "../utility/strings"
 
 const Register = (
 

@@ -10,7 +10,7 @@ import UserProfile from './components/UserProfile'
 import PrivateRoute from './components/@authentication/PrivateRoute'
 
 //Import react routing
-import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 
 // const ROBOT_ICON_URL = 'https://i.pinimg.com/originals/a7/98/42/a79842bfa9a2d36047d3478a944b8506.gif'
 
@@ -33,7 +33,7 @@ const App = () =>{
                 <Route path="/register" >
                     <Register />
                 </Route>
-                <PrivateRoute component={UserProfile} path={'/userprofile'} token={loginData} />
+                <PrivateRoute component={UserProfile} path={'/userprofile'} />
             </Switch>
         </Router>
     )
