@@ -1,14 +1,27 @@
 import { useState } from 'react'
 
 import Navigation from './@navigation/Navigation'
+import DisplayUserStories from "./@user_stories/DisplayUserStories"
+import FilterStoriesField from './@user_stories/FilterStoriesField'
 
-const UserProfile = (
-   
-)=>{
+const UserProfile = ()=>{
+    const [isFiltered, setIsFiltered] = useState(false)
+    const [filterValue, setFilterValue] = useState('')
+
     const token = JSON.parse(localStorage.getItem('token'))
     const imgSrc = "https://nimbly-dev.github.io/img/test-avatar.91e50cc7.png"
 
-    console.log(token.username)
+    const handleFilterInputChange = (event)=>{
+        if(event.target.value === ''){
+            setIsFiltered(false)
+            setFilterValue('')
+        }else {
+            setIsFiltered(true);
+            setFilterValue(event.target.value);
+        }
+    }
+
+ 
     if (token.username !== null)
         return(
             <main>
@@ -25,18 +38,16 @@ const UserProfile = (
                                 paddingLeft: 30
                             }}
                             >Welcome back! {token.username}</h3>
-                            <form className="form-inline mt-4">
-                                <label className="sr-only" for="inlineFormInputGroup">Username</label>
-                                <div className="input-group mb-2 mr-sm-2 mb-sm-0 pl-4">
-                                    <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    id="inlineFormInputGroup" 
-                                    placeholder="Filter your stories"
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary">Go</button>
-                            </form>
+                            <FilterStoriesField 
+                            handleOnChangeFilterValue={handleFilterInputChange}
+                            currentFilterValue={filterValue}
+                            />
+                            <p>
+                                <DisplayUserStories 
+                                isFiltered={isFiltered} 
+                                filterValue={filterValue}
+                                />
+                            </p>
                         </div>
                     </div>
                     

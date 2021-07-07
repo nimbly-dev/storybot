@@ -33,7 +33,7 @@ def get_all_background_story(
             db_models.BackgroundStory.user_id == current_user.id
         )
     )
-    user_background_story = db.query(db_models.BackgroundStory).all()
+    # user_background_story = db.query(db_models.BackgroundStory).all()
     return background_stories_of_current_user
 
 

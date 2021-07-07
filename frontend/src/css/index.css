@@ -42,6 +42,10 @@ nav > div > .navbar-nav > .nav-item > a {
     font-size: 30px;
 }
 
+li{
+    font-size: 1.5rem;
+}
+
 nav a:hover {
     color: #32673f;
 }
