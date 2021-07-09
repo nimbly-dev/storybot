@@ -1,5 +1,4 @@
 import react from "react"
-import UserProfile from "../UserProfile"
 
 import AnchorItems from "./AnchorItems"
 

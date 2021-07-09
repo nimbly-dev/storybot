@@ -11,9 +11,11 @@ class BackgroundStoryBase(BaseModel):
 
 
 # Schema for background story
-class BackgroundStory(BackgroundStoryBase):
-    class Config:
-        orm_mode = True
+class BackgroundStory(BaseModel):
+    title: str
+    body: str
+    character_name: str
+    is_shared: bool
 
 
 # Schema for showing all background story of user
@@ -38,6 +40,7 @@ class ShowSharedBackgroundStories(BaseModel):
 
 # Schema for showing specific background story by id
 class ShowBackgroundStory(BaseModel):
+    id: int
     title: str
     body: str
     character_name: str

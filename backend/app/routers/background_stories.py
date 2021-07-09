@@ -11,6 +11,7 @@ from app.model.schema.users import User
 from app.model.schema.background_story import (
     BackgroundStory,
     ShowBackgroundStory,
+    BackgroundStoryBase,
     ShowAllBackgroundStoryUser,
     ShowSharedBackgroundStories,
 )
@@ -61,10 +62,11 @@ def get_shared_background_stories(
 @router.post(
     "/",
     status_code=status.HTTP_201_CREATED,
+    response_model=ShowBackgroundStory,
     description="creates a background story for the current user",
 )
 def create_background_story(
-    request: BackgroundStory,
+    request: BackgroundStoryBase,
     db: Session = Depends(database.get_db),
     current_user: User = Depends(oauth2.get_current_user),
 ):

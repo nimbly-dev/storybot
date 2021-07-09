@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 
 //Import 3rd party libraries
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 
 //Import backend Routers
 import { URL_ROUTERS } from '../../utility/strings';
@@ -14,7 +14,6 @@ import StoryLink from './StoryLink';
 
 const DisplayUserStories = ({isFiltered, filterValue})=>{
     const token = JSON.parse(localStorage.getItem('token'))
-
     const [userStories, setUserStories] = useState([])
 
     const axiosGetStories = ()=>{
@@ -24,9 +23,9 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
             }
         }
         
-        axios.get(URL_ROUTERS.base_url_get_background_story, config)
+        axios.get(URL_ROUTERS.base_url_get_user_background_story, config)
         .then((response)=>{
-            console.log(response.data)
+            console.log(response)
             setUserStories(response.data)
         })
         .catch((error)=>{
@@ -39,7 +38,9 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
         })
     }
 
-    useEffect(axiosGetStories,[])
+    console.log(userStories[1])
+
+    useEffect(axiosGetStories,[token.access_token])
 
     if(isFiltered === true){  //User usesfilter 
         const filtered = userStories.filter((story)=>{
@@ -60,8 +61,8 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
         return(
             <div className='mt-3'>
                 <ul>
-                {userStories.map(story=>{
-                    return <StoryLink storyTitle={story.title}/>
+                {userStories.map((story)=>{
+                    return <StoryLink id={story.id} storyTitle={story.title}/>
                 })}
                 </ul>
             </div>

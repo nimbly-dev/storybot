@@ -1,10 +1,19 @@
 import react from 'react'
 
+import {useHistory, useLocation } from 'react-router-dom'
 
 const AnchorItems = ({currentPage})=>{
+    const location = useLocation();
+    const history = useHistory();
+
     const handleLogout = ()=>{
         localStorage.clear()
         window.location.reload(false); 
+    }
+
+    const handleUserprofileRedirect = ()=>{
+        const { from } = location.state || { from: { pathname: "/userprofile" } };
+        history.replace(from)
     }
 
     if(currentPage === 'Userprofile') {
@@ -33,17 +42,29 @@ const AnchorItems = ({currentPage})=>{
                     </a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link text-light text-muted" href="#">User Profile</a>
+                    <a onClick={handleUserprofileRedirect} className="nav-link text-light text-muted" href="#userprofile">User Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a className="nav-link text-light text-muted" href="#">Logout</a>
+                    <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>
                 </li>
             </ul>
         )
     }
     else{
         return(
-            <p>Error</p>
+            <ul className="navbar-nav justify-content-between ml-auto">
+                <li className="nav-item">
+                    <a className="nav-link text-light text-muted" href="#">
+                        Browse
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a onClick={handleUserprofileRedirect} className="nav-link text-light text-muted" href="#userprofile">User Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>
+                </li>
+            </ul>
         )
     }
 }

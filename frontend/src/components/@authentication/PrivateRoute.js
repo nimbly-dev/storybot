@@ -8,8 +8,6 @@ const PrivateRoute = ({
     const location = useLocation();
     const isAuthenticated = localStorage.getItem("isAuthenticated");
 
-    console.log("Inside private route")
-    console.log(isAuthenticated)
     return isAuthenticated? (
         <Route 
             path={path}
