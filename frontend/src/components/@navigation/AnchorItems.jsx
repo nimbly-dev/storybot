@@ -1,5 +1,3 @@
-import react from 'react'
-
 import {useHistory, useLocation } from 'react-router-dom'
 
 const AnchorItems = ({currentPage})=>{
@@ -16,6 +14,11 @@ const AnchorItems = ({currentPage})=>{
         history.replace(from)
     }
 
+    const handleAddStoryRedirect = ()=>{
+        const { from } = location.state || { from: { pathname: "/addstory" } };
+        history.replace(from)
+    }
+
     if(currentPage === 'Userprofile') {
         return(
             <ul className="navbar-nav justify-content-between ml-auto">
@@ -26,6 +29,9 @@ const AnchorItems = ({currentPage})=>{
                 </li>
                 <li className="nav-item">
                     <a className="nav-link active text-light" href="#userprofile">User Profile</a>
+                </li>
+                <li className="nav-item">
+                    <a onClick={handleAddStoryRedirect} className="nav-link text-light text-muted" href="#addstory">Add Story</a>
                 </li>
                 <li class="nav-item">
                     <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>
@@ -44,10 +50,33 @@ const AnchorItems = ({currentPage})=>{
                 <li className="nav-item">
                     <a onClick={handleUserprofileRedirect} className="nav-link text-light text-muted" href="#userprofile">User Profile</a>
                 </li>
+                <li className="nav-item">
+                    <a onClick={handleAddStoryRedirect} className="nav-link text-light text-muted" href="#addstory">Add Story</a>
+                </li>
                 <li class="nav-item">
                     <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>
                 </li>
             </ul>
+        )
+    }
+    else if(currentPage === 'Add Story'){
+        return(
+        <ul className="navbar-nav justify-content-between ml-auto">
+            <li className="nav-item">
+                <a className="nav-link text-light text-muted" href="#">
+                    Browse
+                </a>
+            </li>
+            <li className="nav-item">
+                <a onClick={handleUserprofileRedirect} className="nav-link text-light text-muted" href="#userprofile">User Profile</a>
+            </li>
+            <li className="nav-item">
+                <a onClick={handleAddStoryRedirect} className="nav-link active text-light" href="#addstory">Add Story</a>
+            </li>
+            <li class="nav-item">
+                <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>
+            </li>
+        </ul>
         )
     }
     else{
@@ -60,6 +89,9 @@ const AnchorItems = ({currentPage})=>{
                 </li>
                 <li className="nav-item">
                     <a onClick={handleUserprofileRedirect} className="nav-link text-light text-muted" href="#userprofile">User Profile</a>
+                </li>
+                <li className="nav-item">
+                    <a onClick={handleAddStoryRedirect} className="nav-link text-light text-muted" href="#addstory">Add Story</a>
                 </li>
                 <li class="nav-item">
                     <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>

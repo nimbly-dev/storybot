@@ -1,9 +1,9 @@
 import json
 
-from app.model.random_gen import Names,Locations as gen
+from app.model.random_gen import Names
 
-f = open('app/data/data.json')
+f = open("app/data/data.json")
 
 data_dict = json.load(f)
 
-print(gen.generate_dwarf_location())
+print(Names.RANDOM_MALE_HUMAN_FIRSTNAME)

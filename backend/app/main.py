@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from app.routers import users, background_stories, authentication
+from app.routers import users, background_stories, authentication, random_gen
 from app.model import db_models
 from app.utilities.database import engine
 
@@ -29,6 +29,7 @@ app.add_middleware(
 app.include_router(authentication.router)
 app.include_router(users.router)
 app.include_router(background_stories.router)
+app.include_router(random_gen.router)
 
 
 db_models.Base.metadata.create_all(bind=engine)

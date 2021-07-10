@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import UserProfile from './components/UserProfile'
 import ViewStory from './components/ViewStory'
+import AddStory from './components/AddStory'
 import PrivateRoute from './components/@authentication/PrivateRoute'
 
 //Import react routing
@@ -34,6 +35,7 @@ const App = () =>{
                     <Register />
                 </Route>
                 <PrivateRoute exact component={UserProfile} path={'/userprofile'} />
+                <PrivateRoute exact component={AddStory} path={'/addstory'}/>
                 <PrivateRoute component={ViewStory} path={'/background-story/:id'}/>
             </Switch>
         </Router>
