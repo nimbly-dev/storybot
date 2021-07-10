@@ -105,14 +105,14 @@ def gen_dwarf_female_firstname():
     status_code=200,
     description="Generate a dwaft lastname",
 )
-def gen_dwarf_female_firstname():
+def gen_dwarf_lastname():
     return f'{random.choice(data_dict["data"]["dwarf"]["names"]["lastname_firstword"]).capitalize()}{random.choice(data_dict["data"]["dwarf"]["names"]["lastname_secondword"])}'
 
 
 @router.get(
     "/orc-firstname",
     status_code=200,
-    description="Generate a orc firstname",
+    description="Generate a orc male name",
 )
 def gen_orc_male_name():
     return random.choice(data_dict["data"]["orc"]["names"]["male_name"])
@@ -121,7 +121,7 @@ def gen_orc_male_name():
 @router.get(
     "/orc-lastname",
     status_code=200,
-    description="Generate a orc lastname",
+    description="Generate a orc female name",
 )
 def gen_orc_female_name():
     return random.choice(data_dict["data"]["orc"]["names"]["female_name"])
