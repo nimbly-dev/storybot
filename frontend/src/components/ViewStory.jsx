@@ -4,7 +4,6 @@ import {useEffect, useState} from 'react'
 //Import child libraries
 import Navigation from './@navigation/Navigation'
 
-
 //Import third party libraroes
 import { ToggleButton,ToggleButtonGroup  } from 'react-bootstrap';
 import { URL_ROUTERS } from '../utility/strings'
@@ -29,7 +28,6 @@ const ViewStory = ()=>{
                 "Authorization": "Bearer " + token.access_token
             }
         }
-        
         axios.get(`${URL_ROUTERS.base_url_get_user_background_story}/${id}`,config)
         .then((response)=>{
             console.log("INSIDE GET")
@@ -90,7 +88,7 @@ const ViewStory = ()=>{
 
 
     useEffect(axiosGetStory,[token.access_token, id, storyIsShared])
-
+    
 
     return(
         <main>

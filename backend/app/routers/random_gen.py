@@ -6,6 +6,7 @@ from sqlalchemy.sql.expression import true
 
 from app.utilities import hashing, oauth2
 from app.model.schema.users import User
+from app.model.schema.random_gen import StoryGen
 
 
 import random
@@ -145,3 +146,66 @@ def gen_dwarf_location():
 @router.get("/orc-location", status_code=200, description="Generate orc locations")
 def gen_orc_location():
     return f'{random.choice(data_dict["data"]["orc"]["locations"]["location_word_firstix"]).capitalize()}{random.choice(data_dict["data"]["orc"]["locations"]["location_word_secondtix"])}{random.choice(data_dict["data"]["orc"]["locations"]["location_word_thirdtix"])}{random.choice(data_dict["data"]["orc"]["locations"]["location_word_fourthix"])}'
+
+
+@router.get("/class", status_code=200, description="Generate Class")
+def gen_class():
+    return f'{random.choice(data_dict["data"]["class"])}'
+
+
+@router.get("/npc", status_code=200, description="Generate NPC")
+def gen_npc():
+    return f'{random.choice(data_dict["data"]["npc"])}'
+
+
+@router.get("/faction", status_code=200, description="Generate Faction")
+def gen_faction():
+    return f'{random.choice(data_dict["data"]["factions"]["faction_firstix"]).capitalize()}{random.choice(data_dict["data"]["factions"]["faction_secondtix"])}{random.choice(data_dict["data"]["factions"]["faction_thirdtix"])}{random.choice(data_dict["data"]["factions"]["faction_fourthix"])}{random.choice(data_dict["data"]["factions"]["faction_fifthix"])} {random.choice(data_dict["data"]["factions"]["faction_type"])}'
+
+
+@router.post(
+    "/generate-background-story",
+    status_code=200,
+    description="Generate a full background story",
+)
+def gen_background_story(request: StoryGen):
+    background_story_input = {
+        "race": request.race,
+        "profession": request.profession,
+        "antagonist_name": request.antagonist_name,
+        "antagonist_faction": request.antagonist_faction,
+    }
+
+    # Generate story lines variables
+    story_gen_birth = random.choice(data_dict["data"]["story_gen"]["birth_story"])
+    generated_birth_story = story_gen_birth.replace("{INSERT_RACE}", request.race)
+
+    generated_childhood_story = random.choice(
+        data_dict["data"]["story_gen"]["childhood_story"]
+    )
+
+    story_gen_training = random.choice(data_dict["data"]["story_gen"]["training_story"])
+    generated_training_story = story_gen_training.replace(
+        "{INSERT_CLASS_HERE}", request.profession
+    )
+
+    story_gen_antagonist = random.choice(
+        data_dict["data"]["story_gen"]["antagonist_story"]
+    )
+    replace_antagonist_name = story_gen_antagonist.replace(
+        "{INSERT_ANTAGONIST_NAME}", request.antagonist_name
+    )
+    replace_antagonist_faction = replace_antagonist_name.replace(
+        "{INSERT_ANTAGONIST_FACTION_NAME}", request.antagonist_faction
+    )
+
+    generated_antagonist_story = replace_antagonist_faction
+
+    gen_background_story = (
+        f"{generated_birth_story} "
+        f"{generated_childhood_story} "
+        f"{generated_training_story} "
+        f"{generated_antagonist_story} "
+    )
+
+    return gen_background_story
