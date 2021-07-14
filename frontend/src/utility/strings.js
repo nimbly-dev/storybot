@@ -45,3 +45,7 @@ export let GEN_NPC_TYPE_ROUTER = {
 export let GEN_FACTION_ROUTER = {
     url_gen_faction : 'http://127.0.0.1:8000/random-gen/faction'
 }
+
+export let GEN_BACKGROUND_STORY = {
+    url_gen_background_story : "http://127.0.0.1:8000/random-gen/generate-background-story"
+}
