@@ -73,7 +73,7 @@ def create_background_story(
     new_background_story = db_models.BackgroundStory(
         title=request.title,
         body=request.body,
-        character_name=request.body,
+        character_name=request.character_name,
         is_shared=request.is_shared,
         user_id=current_user.id,
     )

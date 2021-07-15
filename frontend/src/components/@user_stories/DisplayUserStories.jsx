@@ -52,7 +52,7 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
            <div>
                <ul>
                {filtered.map(story=>{
-                   return <StoryLink storyTitle={story.title}/>
+                   return <StoryLink id={story.id} storyTitle={story.title}/>
                })}
                </ul>
            </div>

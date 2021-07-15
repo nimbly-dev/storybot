@@ -39,6 +39,7 @@ def login(
     return {
         "username": user.username,
         "access_token": access_token,
+        "user_id": user.id,
         "token_type": "bearer",
     }
 

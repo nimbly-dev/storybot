@@ -1,13 +1,15 @@
 import axios from 'axios'
 import {useEffect, useState} from 'react'
 
-//Import child libraries
-import Navigation from './@navigation/Navigation'
 
-//Import third party libraroes
-import { ToggleButton,ToggleButtonGroup  } from 'react-bootstrap';
+import Navigation from './@navigation/Navigation'
+import InputForViewStory from './@forms/InputForViewStory';
+
+
+import { ToggleButton,ToggleButtonGroup } from 'react-bootstrap';
 import { URL_ROUTERS } from '../utility/strings'
 import { useParams,useHistory,useLocation } from 'react-router-dom'
+import TextAreaForViewStory from './@forms/TextAreaForViewStory';
 
 const ViewStory = ()=>{
     const token = JSON.parse(localStorage.getItem('token'))
@@ -16,10 +18,9 @@ const ViewStory = ()=>{
     const location = useLocation();
     const history = useHistory();
 
-
     const [storyBody, setStoryBody] = useState('')
     const [storyTitle, setStoryTitle] = useState('')
-    const [storyCharacter, setStoryCharacter] = useState('')
+    const [storyCharacterName, setStoryCharacterName] = useState('')
     const [storyIsShared, setStoryIsShared] = useState(false)
 
     const axiosGetStory = ()=>{
@@ -31,11 +32,18 @@ const ViewStory = ()=>{
         axios.get(`${URL_ROUTERS.base_url_get_user_background_story}/${id}`,config)
         .then((response)=>{
             console.log("INSIDE GET")
+            console.log("GET_IS_SHARED: " + response.data.is_shared)
             setStoryBody(response.data.body)
             setStoryTitle(response.data.title)
-            setStoryCharacter(response.data.character_name)
+            setStoryCharacterName(response.data.character_name)
             setStoryIsShared(response.data.is_shared)
-            console.log('isShare: '+ storyIsShared)
+            // if(response.data.is_shared === true)
+            //     setStoryIsShared(true)
+            // else
+            //     setStoryIsShared(false)
+
+
+            // console.log('isShare: '+ sharedValue)
         })
         .catch((error)=>{
             if (error.response) {
@@ -53,9 +61,9 @@ const ViewStory = ()=>{
         
         formData.append("title", storyTitle)
         formData.append("body", storyBody)
-        formData.append("character_name", storyCharacter)
+        formData.append("character_name", storyCharacterName)
         formData.append("is_shared", storyIsShared)
-
+        console.log("isShared: " +storyIsShared)
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -86,76 +94,67 @@ const ViewStory = ()=>{
         history.replace(from)
     }
 
+    useEffect(axiosGetStory)
+    // console.log(storyIsShared)
 
-    useEffect(axiosGetStory,[token.access_token, id, storyIsShared])
+    const handleIsSharedChange = (selectedValue) =>{
+        setStoryIsShared(selectedValue)
+    }
     
-
     return(
         <main>
             <Navigation currentPage={''}/>
             <section className='container d-flex justify-content-center'>
                 <div className='row'>
-                    <div className='col-xs-12'>
-                        <form onSubmit={(e)=>axiosUpdateStory(e)}>
-                        <div className="input-group mb-2 mr-sm-2">
-                            <div className="input-group-prepend">
-                            <div className="input-group-text">Title: </div>
-                            </div>
-                            <input 
-                            type="text" 
-                            className="form-control" 
-                            value={storyTitle}
-                            onChange={e=>setStoryTitle(e.currentTarget.value)}
+                   
+                    <form onSubmit={(e)=>axiosUpdateStory(e)}>
+                        <div className="col-xs-12">
+                            <InputForViewStory 
+                                value={storyTitle}
+                                setter={setStoryTitle}
+                                labelText={"Title"}
                             />
                         </div>
+                    
+                        <InputForViewStory
+                            value={storyCharacterName}
+                            setter={setStoryTitle}
+                            labelText={"Character Name"}
+                        />
                         
-                        <div className="input-group mb-2 mr-sm-2">
-                            <div className="input-group-prepend">
-                            <div className="input-group-text">Character Name: </div>
-                            </div>
-                            <input 
-                            type="text" 
-                            className="form-control"
-                            value={storyCharacter}
-                            onChange={e=>setStoryCharacter(e.currentTarget.value)}
-                            />
-                        </div>
-                        
-                        <div className="form-group">
-                            <label for="textAreaBody">Click the textarea to edit your story: </label>
-                            <textarea 
-                            className="form-control" 
+                        <TextAreaForViewStory
                             value={storyBody}
-                            onChange={e=>setStoryBody(e.currentTarget.value)}
-                            rows="5"
-                            />
-                        </div>
-                        <ToggleButtonGroup 
+                            setter={setStoryBody}
+                            labelText={"Click the textarea to edit your story"}
+                        />
+
+                        <ToggleButtonGroup  
+                            className="btn-group btn-group-toggle mb-5"
                             type="radio" 
-                            name="options" 
-                            defaultValue={storyIsShared}
-                            defaultChecked={storyIsShared}
+                            name="options"
+                            // value={storyIsShared}
+                            value={storyIsShared}
+                            onChange={handleIsSharedChange}
                         >
                             <ToggleButton 
                                 variant="outline-primary"
                                 id="tbg-radio-1" 
                                 value={true}
-                                checked
-                                onChange={(e) => setStoryIsShared(e.currentTarget.value)}
+                                name='shared'
+                                type='radio'
                             >
-                            Shared
+                                Shared
                             </ToggleButton>
                             <ToggleButton 
                                 variant="outline-primary"
-                                id="tbg-radio-2" 
+                                id="tbg-radio-2"
+                                type='radio' 
+                                name='not_shared'
                                 value={false}
-                                onChange={(e) => setStoryIsShared(e.currentTarget.value)}
                             >
-                            Not Shared
+                                Not Shared
                             </ToggleButton>
-                        </ToggleButtonGroup>
-
-                    
+                        </ToggleButtonGroup> 
             
                         <div className="form-group">
                             <button 
@@ -169,8 +168,8 @@ const ViewStory = ()=>{
                                 >Submit
                             </button>
                         </div>
-                        </form>
-                    </div>
+                    </form>
+                    
                 </div>
             </section>
         </main>

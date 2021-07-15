@@ -1,12 +1,22 @@
 
 import { useState} from "react"
+
+//Import created components
 import Navigation from "./@navigation/Navigation";
+import InputNameForAddStory from "./@forms/InputNameForAddStory";
+import InputForAddStory from "./@forms/InputForAddStory";
+import TextAreaForAddStory from "./@forms/TextAreaForAddStory";
+import ErrorText from "./@error_text/ErrorText";
 
 //Import third party libraroes
-import { ButtonGroup, ToggleButton,ToggleButtonGroup  } from 'react-bootstrap';
+import { 
+    ButtonGroup, 
+    ToggleButton,
+} from 'react-bootstrap';
+
 
 //Random GEN Routers
-import {axiosFemaleHumanfirstname, axiosHumanLastname, axiosMaleHumanFirstname} from "./@random_gen/HumanGen"
+import { axiosFemaleHumanfirstname, axiosHumanLastname, axiosMaleHumanFirstname} from "./@random_gen/HumanGen"
 import { axiosElfFemaleFirstname, axiosElfLastname, axiosElfMaleFirstname } from "./@random_gen/ElfGen"
 import { axiosDwarfLastname, axiosFemaleDwarffirstname, axiosMaleDwarfFirstname } from "./@random_gen/DwarfGen"
 import { axiosFemaleOrcName, axiosMaleOrcName } from "./@random_gen/OrcGen"
@@ -14,11 +24,14 @@ import { generateRandomRace } from "./@random_gen/RaceGen"
 import { axiosGenerateClass } from "./@random_gen/ClassGen"
 import { axiosGenFaction } from "./@random_gen/FactionGen"
 import { axiosGenerateBackgroundStory } from "./@random_gen/StoryGen";
+import { axiosTitleGen} from "./@random_gen/TitleGen"
+import { axiosSaveBackgroundStory } from "./@methods/BackgroundStory";
 
 //Import third party libraries
 
 const AddStory = ()=>{
 
+    const [characterStoryTitle, setCharacterStoryTitle] = useState('')
     const [characterFirstName, setCharacterFirstName] = useState('')
     const [characterLastName, setCharacterLastName] = useState('')
     const [characterClass, setCharacterClass] = useState('')
@@ -32,6 +45,8 @@ const AddStory = ()=>{
         {name: 'Male', value: '1'},
         {name: 'Female', value: '2'},
     ]
+
+    const [hasErrors, setHasError] = useState(false)
 
     const [generatedCharStory, setGeneratedCharStory] = useState('');
 
@@ -185,8 +200,62 @@ const AddStory = ()=>{
          }
     }
     
-    const handleOnClickGenerate = ()=>{
+    const handleOnClickRegister = ()=>{
+        //If any of these values are empty then throw error
+        if(
+            !characterFirstName     || 
+            !characterLastName      ||
+            !characterRace          ||
+            !characterClass         ||
+            !characterEnemyFaction  ||
+            !characterEnemyFullName ||
+            !generatedCharStory     ||
+            !characterStoryTitle){
+                console.log('ERROR')
+                setHasError(true)
+            }
+        else{
+            axiosSaveBackgroundStory(characterStoryTitle,generatedCharStory,`${characterFirstName} ${characterLastName}`)
+            setHasError(false)
+            alert('Created new background story')
+        }
+    }
 
+    const handleOnClickGenerateStory = ()=>{
+        //If any of these values are empty then throw error
+        if(
+            !characterFirstName     || 
+            !characterLastName      ||
+            !characterRace          ||
+            !characterClass         ||
+            !characterEnemyFaction  ||
+            !characterEnemyFullName ||
+            !characterStoryTitle){
+                console.log('ERROR')
+                setHasError(true)
+            }
+        else{
+            axiosGenerateBackgroundStory(
+                setGeneratedCharStory,
+                characterRace,
+                characterClass,
+                characterEnemyFullName,
+                characterEnemyFaction
+            )
+            setHasError(false)
+        }
+    }
+
+    const handleOnClickClearInputs = ()=>{
+        setCharacterFirstName('')
+        setCharacterLastName('')
+        setCharacterClass('')
+        setCharacterRace('')
+        setCharacterEnemyFaction('')
+        setCharacterEnemyFirstName('')
+        setCharacterEnemyLastName('')
+        setCharacterEnemyFullName('')
+        setGeneratedCharStory('')
     }
 
     return(
@@ -195,107 +264,58 @@ const AddStory = ()=>{
             <section className='container'>
                 <div className='row container d-flex justify-content-center'>
                     <div className='col-md-auto'>
-                        <h4>Add a background story</h4>
+                        <h5>Create your very own character with background story!</h5>
+                            <div className="input-group mb-1">
+                                <InputForAddStory
+                                    value={characterStoryTitle}
+                                    placeholder="Enter story title"
+                                    randomGen={axiosTitleGen}
+                                    setter={setCharacterStoryTitle}
+                                />
+                        </div>
                     </div>
                 </div>
-                <div className='row container d-flex justify-content-between'>
-                       
+                <div className='row container d-flex justify-content-between mt-3'>
                         <div className='col-md-6 column'>
-                            <h4>COL 1</h4>  
-                            
                             {/*FOR CHARACTER FIRSTNAME*/}
-                            <div class="input-group mb-3">
-                                <input 
-                                    type="text" 
-                                    className="form-control"
-                                    value={characterFirstName}
-                                    onChange={e=>setCharacterFirstName(e.currentTarget.value)}
-                                    placeholder="Enter character first name"
-                                />
-                                <div className="input-group-append">
-                                    <button 
-                                    className="btn btn-primary" 
-                                    onClick={handleOnclickRandomFirstname(setCharacterFirstName)}
-                                    type="button">Random!</button>
-                                </div>
-                            </div>
-
+                            <InputNameForAddStory 
+                                placeholder="Enter Character firstname"
+                                value={characterFirstName}
+                                setter={setCharacterFirstName} 
+                                randomGen={handleOnclickRandomFirstname}
+                            />
                             {/*FOR CHARACTER CLASS*/}
-                            <div class="input-group mb-3">
-                                <input 
-                                    type="text" 
-                                    value={characterClass}
-                                    onChange={e=>setCharacterClass(e.currentTarget.value)}
-                                    className="form-control" 
-                                    placeholder="Enter character class"/>
-                                <div className="input-group-append">
-                                    <button 
-                                    onClick={()=>axiosGenerateClass(setCharacterClass)}
-                                    className="btn btn-primary" 
-                                    type="button">Random!</button>
-                                </div>
-                            </div>
-
+                            <InputForAddStory
+                                placeholder="Enter character Class"
+                                value={characterClass}
+                                setter={setCharacterClass}
+                                randomGen={axiosGenerateClass}
+                            />
                             {/*FOR CHARACTER ENEMY FACTION*/}
-                            <div className="input-group mb-3">
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    value={characterEnemyFaction}
-                                    onChange={e=>setCharacterEnemyFaction(e.currentTarget.value)}
-                                    placeholder="Enter character enemy faction"
-                                />
-                                <div className="input-group-append">
-                                    <button 
-                                        className="btn btn-primary" 
-                                        type="button"
-                                        onClick={()=>axiosGenFaction(setCharacterEnemyFaction)}>Random!
-                                    </button>
-                                </div>
-                            </div>
+                            <InputForAddStory
+                                placeholder="Enter character enemy faction"
+                                value={characterEnemyFaction}
+                                setter={setCharacterEnemyFaction}
+                                randomGen={axiosGenFaction}
+                            />
                         </div>
-                            
-                        
-                        
-                        <div className='col-md-6 column'>
-                            <h4>COL 2</h4>
 
+                        <div className='col-md-6 column'>
                             {/*FOR CHARACTER LAST NAME*/}
-                            <div class="input-group mb-3">
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    placeholder="Enter character last name"
-                                    value={characterLastName}
-                                    onChange={e=>setCharacterLastName(e.currentTarget.value)}
-                                />
-                                <div className="input-group-append">
-                                    <button 
-                                    onClick={handleOnClickRandomLastname(setCharacterLastName)}
-                                    className="btn btn-primary" 
-                                    type="button">
-                                        Random!
-                                    </button>
-                                </div>
-                            </div>
+                            <InputNameForAddStory
+                                placeholder="Enter character lastname"
+                                value={characterLastName}
+                                setter={setCharacterLastName}
+                                randomGen={handleOnClickRandomLastname}
+                            />
 
                             {/*FOR CHARACTER RACE*/}
-                            <div className="input-group mb-3">
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    value={characterRace}
-                                    onChange={e=>setCharacterRace(e.currentTarget.value)}
-                                    placeholder="Enter character race"/>
-                                <div class="input-group-append">
-                                    <button 
-                                    className="btn btn-primary" 
-                                    type="button"
-                                    onClick={()=>generateRandomRace(setCharacterRace)}
-                                    >Random!
-                                    </button>
-                                </div>
-                            </div>
+                            <InputForAddStory
+                                placeholder="Enter character race"
+                                value={characterRace}
+                                setter={setCharacterRace}
+                                randomGen={generateRandomRace}
+                            />
 
                             {/*FOR CHARACTER ENEMY NAME*/}
                             <div className="input-group mb-3">
@@ -338,33 +358,42 @@ const AddStory = ()=>{
                         </ButtonGroup>
                     </div>
                 </div>
+
+                {/* FOR GENERATED STORY TEXT */}
                 <div className='row mt-3 d -flex justify-content-center'>
                     <div className='col-md-auto w-100'>
-                        <div className="form-group">
-                                <label for="textAreaBody">Click the textarea to edit your generated story: </label>
-                                <textarea 
-                                className="form-control" 
-                                value={generatedCharStory}
-                                onChange={e=>setGeneratedCharStory(e.currentTarget.value)}
-                                rows="5"
-                                />
-                        </div>
+                        <TextAreaForAddStory
+                            value={generatedCharStory}
+                            setter={setGeneratedCharStory}
+                        />
                     </div>
                 </div>
 
                 <div className='row mt-2 d-flex justify-content-center'>
                     <div className='col-md-auto'>
+                        <button
+                            className="btn btn-outline-primary mr-5"
+                            onClick={handleOnClickClearInputs}
+                        >
+                            Clear
+                        </button>
                         <button 
-                            className="btn btn-outline-primary"
-                            onClick={()=>axiosGenerateBackgroundStory(
-                                setGeneratedCharStory,
-                                characterRace,
-                                characterClass,
-                                characterEnemyFullName,
-                                characterEnemyFaction
-                            )}
+                            className="btn btn-outline-primary ml-5"
+                            onClick={handleOnClickGenerateStory}
                         >
                                 Generate Story
+                        </button>
+                    </div>
+                </div>
+
+                <div className='row mt-4 d-flex justify-content-center w-100'>
+                    <div className='col-md-auto '>
+                        <ErrorText errorText={"PLEASE FILL OUT ALL THE INPUTS"} hasErrors={hasErrors}/> 
+                        <button
+                            className="btn btn-outline-primary btn-lg btn-block"
+                            onClick={handleOnClickRegister}
+                        >
+                            SAVE STORY
                         </button>
                     </div>
                 </div>

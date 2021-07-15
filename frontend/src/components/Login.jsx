@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 //Import child components
-import ErrorText from './ErrorText';
+import ErrorText from './@error_text/ErrorText';
 
 //Import utility
 import { URL_ROUTERS } from '../utility/strings.js'

@@ -39,15 +39,16 @@ const UserProfile = ()=>{
                             }}
                             >Welcome back! {token.username}</h3>
                             <FilterStoriesField 
-                            handleOnChangeFilterValue={handleFilterInputChange}
-                            currentFilterValue={filterValue}
+                                handleOnChangeFilterValue={handleFilterInputChange}
+                                currentFilterValue={filterValue}
                             />
                             <p>
                                 <DisplayUserStories 
-                                isFiltered={isFiltered} 
-                                filterValue={filterValue}
+                                    isFiltered={isFiltered} 
+                                    filterValue={filterValue}
                                 />
                             </p>
+                            
                         </div>
                     </div>
                     

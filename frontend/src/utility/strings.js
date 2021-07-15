@@ -46,6 +46,14 @@ export let GEN_FACTION_ROUTER = {
     url_gen_faction : 'http://127.0.0.1:8000/random-gen/faction'
 }
 
+export let GEN_STORY_TITLE_ROUTER ={
+    url_gen_title : 'http://127.0.0.1:8000/random-gen/title'
+}
+
 export let GEN_BACKGROUND_STORY = {
     url_gen_background_story : "http://127.0.0.1:8000/random-gen/generate-background-story"
+}
+
+export let URL_BACKGROUND_STORY = {
+    base_url_background_story : 'http://127.0.0.1:8000/background-story',
 }

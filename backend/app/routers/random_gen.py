@@ -209,3 +209,8 @@ def gen_background_story(request: StoryGen):
     )
 
     return gen_background_story
+
+
+@router.get("/title", status_code=200, description="Generate a story-title")
+def gen_story_title():
+    return random.choice(data_dict["data"]["title_gen"])
