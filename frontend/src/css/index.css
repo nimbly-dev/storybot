@@ -49,3 +49,6 @@ li{
 nav a:hover {
     color: #32673f;
 }
+.page-wrap-error{
+    min-height: 100vh;
+}

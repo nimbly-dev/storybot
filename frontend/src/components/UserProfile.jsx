@@ -23,7 +23,6 @@ const UserProfile = ()=>{
             setFilterValue(event.target.value);
         }
     }
-
  
     if (token.username !== null)
         return(

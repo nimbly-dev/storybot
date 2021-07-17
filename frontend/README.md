@@ -1,15 +1,13 @@
 # BUGS
 
-1. Edit Story on ViewStory.jsx functionality isShared not working 
-    * ToggleButton not working
-    * IsShared value being stuck on False in every render
+1. AddStory Router Character Enemy Name
+    * Double renders
+    * Inefficient Method
+    * Returns empty input on first click of random button
 
 # TODO
 
-1. Add Story (AddStory.jsx)
-    * Allow random inputs
-
-2. View Public Story (ViewPublicStories.jsx)
+1. View Public Story (ViewPublicStories.jsx)
     * Get all Shared Stories
     * Allow copying of shared story
     * Allow viewing of shared stories
@@ -17,14 +15,8 @@
     * Allow Filter Search of shared stories
     * Popular and Recent Filter
 
-3. See Shared Story 
+2. Revisit UI/UX of Login and Register
 
-4. Edit Sotry (ViewStory.jsx)
-    * Fix isShared bug
-
-5. Setup default path
-
-6. Throw 404 Error if page not found
 
 # LEAST PRIORITY
 

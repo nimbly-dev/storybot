@@ -51,24 +51,26 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
             else return false
         })
         return(
-            <table className="table">
-            <thead>
+            <table className="table table-hover table-striped">
+            <thead className='thead-dark'>
                 <th scope='col'>#</th>
                 <th scope='col'>Story</th>
+                <th scope='col'>Character Name</th>
                 <th scope='col'>Actions</th>
             </thead>
             <tbody>
                 {filtered.map((story,idx)=>{
                     return (
                         <tr>
-                            <th scope="row">{idx}</th>
+                            <th scope="row">{idx+1}</th>
                             <td>
                                 <StoryLink id={story.id} storyTitle={story.title}/>
                             </td>
+                            <td>
+                                {story.character_name}
+                            </td>
                             <EditButton id={story.id} storyTitle={story.title}/>
-                            <a href="#delete" class="btn btn-sm btn-danger my-1 my-sm-0">
-                            <span class="fas fa-trash mr-1"></span>
-                            Delete</a>
+                            <DeleteButton id={story.id} storyTitle={story.title}/>
                         </tr>
                     )
                 })}

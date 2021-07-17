@@ -46,7 +46,7 @@ def gen_human_female_firstname():
     description="Generates a random human lastname",
 )
 def gen_human_lastname():
-    return f'{random.choice(data_dict["data"]["human"]["names"]["lastname_first_word"]).capitalize()} {random.choice(data_dict["data"]["human"]["names"]["lastname_second_word"])}'
+    return f'{random.choice(data_dict["data"]["human"]["names"]["lastname_first_word"]).capitalize()}{random.choice(data_dict["data"]["human"]["names"]["lastname_second_word"])}'
 
 
 @router.get(

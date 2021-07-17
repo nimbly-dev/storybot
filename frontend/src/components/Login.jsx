@@ -14,9 +14,7 @@ import { URL_ROUTERS } from '../utility/strings.js'
 const INVALID_LOGIN_CREDENTIAL = "Invalid Login Credentials"
 
 const Login = (
-    {
-        handleLoginData,
-    }
+
 )=>{
     const location = useLocation();
     const history = useHistory();
@@ -57,7 +55,6 @@ const Login = (
             const { from } = location.state || { from: { pathname: "/userprofile" } };
             history.replace(from)
             console.log(result)
-            handleLoginData(result)
         })
         .catch((error)=>{
             if (error.response) {
