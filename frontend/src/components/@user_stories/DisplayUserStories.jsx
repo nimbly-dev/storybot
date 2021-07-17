@@ -10,6 +10,8 @@ import { URL_ROUTERS } from '../../utility/strings';
 
 //Import Child components
 import StoryLink from './StoryLink';
+import EditButton from './EditButton';
+import DeleteButton from './DeleteButton';
 
 
 const DisplayUserStories = ({isFiltered, filterValue})=>{
@@ -49,23 +51,57 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
             else return false
         })
         return(
-           <div>
-               <ul>
-               {filtered.map(story=>{
-                   return <StoryLink id={story.id} storyTitle={story.title}/>
-               })}
-               </ul>
-           </div>
+            <table className="table">
+            <thead>
+                <th scope='col'>#</th>
+                <th scope='col'>Story</th>
+                <th scope='col'>Actions</th>
+            </thead>
+            <tbody>
+                {filtered.map((story,idx)=>{
+                    return (
+                        <tr>
+                            <th scope="row">{idx}</th>
+                            <td>
+                                <StoryLink id={story.id} storyTitle={story.title}/>
+                            </td>
+                            <EditButton id={story.id} storyTitle={story.title}/>
+                            <a href="#delete" class="btn btn-sm btn-danger my-1 my-sm-0">
+                            <span class="fas fa-trash mr-1"></span>
+                            Delete</a>
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </table>
         )
     }else{ //User did not use filter
-        return(
-            <div className='mt-3'>
-                <ul>
-                {userStories.map((story)=>{
-                    return <StoryLink id={story.id} storyTitle={story.title}/>
-                })}
-                </ul>
-            </div>
+        return(                           
+            <table className="table table-hover table-striped">
+                <thead className="thead-dark">
+                    <th scope='col'>#</th>
+                    <th scope='col'>Story</th>
+                    <th scope='col'>Character Name</th>
+                    <th scope='col'>Actions</th>
+                </thead>
+                <tbody>
+                    {userStories.map((story,idx)=>{
+                        return (
+                            <tr>
+                                <th scope="row">{idx+1}</th>
+                                <td>
+                                    <StoryLink id={story.id} storyTitle={story.title}/>
+                                </td>
+                                <td>
+                                    {story.character_name}
+                                </td>
+                                <EditButton id={story.id} storyTitle={story.title}/>
+                                <DeleteButton id={story.id} storyTitle={story.title}/>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
         )
     }
 }

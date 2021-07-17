@@ -1,8 +1,11 @@
 import { useState } from 'react'
 
+//Child components
 import Navigation from './@navigation/Navigation'
 import DisplayUserStories from "./@user_stories/DisplayUserStories"
 import FilterStoriesField from './@user_stories/FilterStoriesField'
+import UserDashboard from "./@user_stories/UserDashboard"
+
 
 const UserProfile = ()=>{
     const [isFiltered, setIsFiltered] = useState(false)
@@ -26,29 +29,29 @@ const UserProfile = ()=>{
         return(
             <main>
                 <Navigation currentPage={'Userprofile'}/>
-                <section className='container-fluid d-flex justify-content-center'>
-                    <div className="row d-flex  flex-column">
-                        <div className="col-xs-12">
-                            <img src={imgSrc} style={{
-                                width: 280,
-                            }} 
-                            alt={'Img src not found'}/>
-                            <h3 className='mt-3 '
-                            style={{
-                                paddingLeft: 30
-                            }}
-                            >Welcome back! {token.username}</h3>
+                <section className='container py-5 mb-5 '>
+                    <div className="row d-flex flex-wrap align-content-center">
+                        <div className="col-md-3">
+                            <div className='ml-5'>
+                                <img src={imgSrc} style={{
+                                    width: 150,
+                                }} 
+                                alt={'Img src not found'}/>
+                                <h5 className='mt-3 '
+                                >Welcome back! {token.username}
+                                </h5>
+                            </div>
                             <FilterStoriesField 
                                 handleOnChangeFilterValue={handleFilterInputChange}
                                 currentFilterValue={filterValue}
                             />
-                            <p>
-                                <DisplayUserStories 
-                                    isFiltered={isFiltered} 
-                                    filterValue={filterValue}
-                                />
-                            </p>
-                            
+                             <UserDashboard/>
+                        </div>
+                        <div className="col-md-9">
+                            <DisplayUserStories 
+                                isFiltered={isFiltered} 
+                                filterValue={filterValue}
+                            />
                         </div>
                     </div>
                     

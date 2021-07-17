@@ -1,6 +1,33 @@
 import axios from "axios"
 import { URL_BACKGROUND_STORY } from "../../utility/strings"
 
+
+export const axiosDeleteUserBackgroundStory = (story_id)=>{
+    const token = JSON.parse(localStorage.getItem('token'))
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token.access_token
+        }
+    }
+
+    console.log(`${URL_BACKGROUND_STORY.base_url_background_story}/${story_id}`)
+    axios.delete(`${URL_BACKGROUND_STORY.base_url_background_story}/${story_id}`, config)
+    .then((response)=>{
+        console.log("DELETED THE STORY")
+        window.location.reload(false); 
+    })
+    .catch((error)=>{
+        if (error.response) {
+            console.log("HAS ERROR")
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+    })
+}
+
 export const axiosSaveBackgroundStory = (
     title,
     body,
