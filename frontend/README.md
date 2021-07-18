@@ -22,10 +22,12 @@
 
 1. FIX DESIGN
 
-2. Remove Unused Imports and Vairables
+2. Remove Unused Imports and variables
 
 3. Seperate Functions to seperate files
 
 4. Fully use react bootstrap library
 
-5. Fully use react yup library for forms
+5. Replace form validation with react bootstrap library
+
+6. Improve Register UI

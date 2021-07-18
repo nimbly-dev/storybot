@@ -1,19 +1,17 @@
 import React, {  } from 'react';
 import { useForm } from "react-hook-form";
 
-import {Link, useHistory,useLocation} from 'react-router-dom'
+//Import URL Paths
+import { URL_ROUTERS } from "../utility/strings"
 
 //Import third libraries
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from 'axios';
+import {Link, useHistory,useLocation} from 'react-router-dom'
+import { Col, Form, Row,Button } from 'react-bootstrap';
 
-//Import URL Paths
-import { URL_ROUTERS } from "../utility/strings"
-
-const Register = (
-
-)=>{
+const Register = ()=>{
     const schema = yup.object().shape({
         username: yup.string().required('Username field is required'),
         email: yup.string().email('Email must be valid').required('Email field is required'),
@@ -25,6 +23,7 @@ const Register = (
             .oneOf([yup.ref('password'), null],'Password do not match')
     })
 
+    const ROBOT_ICON_URL = 'https://i.pinimg.com/originals/a7/98/42/a79842bfa9a2d36047d3478a944b8506.gif'
     const { register, formState: {errors}, handleSubmit } = useForm({
         resolver: yupResolver(schema)
     });
@@ -70,63 +69,68 @@ const Register = (
     }
 
     return(
-        <section className='container d-flex justify-content-end' id='register-form'>
-        <div className='row'>
-            <h1 className='col-12 header-register'>Create a account</h1>
-            <form className='mt-4' onSubmit={handleSubmit(handleRegisterForm)}>
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" 
-                    className="form-control" 
-                    placeholder="Enter email"
-                    name="username"
-                    {...register("username")}
-                    />
-                    <medium className="form-text text-muted">
-                        {errors.username?.message}
-                    </medium>
+        <section className='container' id='register-form'>
+            <Row>
+                <Col md='8'> <img src={ROBOT_ICON_URL} alt={'Hotdog'} className='robot-icon mt-5 ml-2'/></Col>
+                <Col md='4' className='mt-3'>
+                    <h1 className='d-flex justify-content-center'>Create a account</h1>
+                    <Form className='mt-4' onSubmit={handleSubmit(handleRegisterForm)}>
+                        <Form.Group>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control 
+                            type="text" 
+                            placeholder="Enter username"
+                            name="username"
+                            {...register("username")}
+                            />
+                            <medium className="form-text text-muted">
+                                {errors.username?.message}
+                            </medium>
 
-                    <label for="emailInput" className='mt-3'>Email</label>
-                    <input type="email" 
-                    name="email"
-                    {...register("email")}
-                    className="form-control"
-                    placeholder="Enter email"
-                    />
-                    <medium className="form-text text-muted">
-                        {errors.email?.message}
-                    </medium>
-                    <label for="password" className='mt-3'>Password</label>
-                    <input type="password" 
-                    className="form-control"
-                    {...register("password")} 
-                    name="password"
-                    placeholder="Enter password" 
-                    aria-describedby="password-help"
-                    />
-                    <medium id='password-help'className="form-text text-muted">
-                        {errors.password?.message}
-                    </medium>
+                            <Form.Label className='mt-3'>Email</Form.Label>
+                            <Form.Control  
+                            type="email" 
+                            name="email"
+                            {...register("email")}
+                            placeholder="Enter email"
+                            />
+                            <medium className="form-text text-muted">
+                                {errors.email?.message}
+                            </medium>
+
+                            <Form.Label className='mt-3'>Password</Form.Label>
+                            <Form.Control 
+                            type="password" 
+                            {...register("password")} 
+                            name="password"
+                            placeholder="Enter password" 
+                            aria-describedby="password-help"
+                            />
+                            <medium id='password-help'className="form-text text-muted">
+                                {errors.password?.message}
+                            </medium>
 
 
-                    <label for="confirmPassword" className='mt-3'>Confirm Password</label>
-                    <input 
-                    type="password" 
-                    className="form-control"
-                    placeholder="Confirm password"
-                    {...register("confirmPassword")} 
-                    name="confirmPassword"
-                    />
-                    <medium id='password-help'className="form-text text-muted">
-                        {errors.confirmPassword?.message}
-                    </medium>
-                </div>
-                <button type="submit" className="btn btn-primary">Register</button>
-                <Link to='/login'>
-                    <a href='#login'  className='col-12'>Already have an account? Sign in now!</a>
-                </Link>
-            </form>
-        </div>
+                            <Form.Label for="confirmPassword" className='mt-3'>Confirm Password</Form.Label>
+                            <Form.Control 
+                            type="password" 
+                            className="form-control"
+                            placeholder="Confirm password"
+                            {...register("confirmPassword")} 
+                            name="confirmPassword"
+                            />
+                            <medium id='password-help'className="form-text text-muted">
+                                {errors.confirmPassword?.message}
+                            </medium>
+
+                        </Form.Group>
+                        <Button type="submit" variant='primary'>Register</Button>
+                        <Link to='/login'>
+                            <a href='#login'  className='col-12'>Already have an account? Sign in now!</a>
+                        </Link>
+                    </Form>
+                </Col>
+            </Row>
     </section>
     )
 }

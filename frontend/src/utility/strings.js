@@ -57,3 +57,8 @@ export let GEN_BACKGROUND_STORY = {
 export let URL_BACKGROUND_STORY = {
     base_url_background_story : 'http://127.0.0.1:8000/background-story',
 }
+
+export let URL_USER = {
+    base_url_login: 'http://127.0.0.1:8000/login',
+    base_url_user: 'http://127.0.0.1:8000/user'
+}
