@@ -3,15 +3,18 @@ import { useState} from "react"
 
 //Import created components
 import Navigation from "./@navigation/Navigation";
-import InputNameForAddStory from "./@forms/InputNameForAddStory";
-import InputForAddStory from "./@forms/InputForAddStory";
 import TextAreaForAddStory from "./@forms/TextAreaForAddStory";
 import ErrorText from "./@error_text/ErrorText";
 
 //Import third party libraroes
 import { 
     ButtonGroup, 
+    Col, 
+    Form, 
+    InputGroup, 
+    Row, 
     ToggleButton,
+    Button
 } from 'react-bootstrap';
 
 
@@ -26,8 +29,6 @@ import { axiosGenFaction } from "./@random_gen/FactionGen"
 import { axiosGenerateBackgroundStory } from "./@random_gen/StoryGen";
 import { axiosTitleGen} from "./@random_gen/TitleGen"
 import { axiosSaveBackgroundStory } from "./@methods/BackgroundStory";
-
-//Import third party libraries
 
 const AddStory = ()=>{
 
@@ -262,81 +263,159 @@ const AddStory = ()=>{
         <main>
             <Navigation currentPage={'Add Story'}/>
             <section className='container'>
-                <div className='row container d-flex justify-content-center'>
-                    <div className='col-md-auto'>
+                <Row className='container d-flex justify-content-center'>
+                    <Col md='auto'>
                         <h5>Create your very own character with background story!</h5>
-                            <div className="input-group mb-1">
-                                <InputForAddStory
-                                    value={characterStoryTitle}
-                                    placeholder="Enter story title"
-                                    randomGen={axiosTitleGen}
-                                    setter={setCharacterStoryTitle}
-                                />
-                        </div>
-                    </div>
-                </div>
-                <div className='row container d-flex justify-content-between mt-3'>
-                        <div className='col-md-6 column'>
+                        <InputGroup className='mb-1'>              
+                            <Form.Control
+                                type="text" 
+                                name="characterFirstName"
+                                value={characterStoryTitle}
+                                onChange={e=>setCharacterStoryTitle(e.currentTarget.value)}
+                                placeholder={"Enter Story Title"}
+                            />
+                            <InputGroup.Append>
+                                <Button
+                                    className="btn btn-primary" 
+                                    onClick={()=>axiosTitleGen(setCharacterStoryTitle)}
+                                    type="button"
+                                >
+                                    Random!
+                                </Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </Col>
+                </Row>
+                <Row className='container d-flex justify-content-between mt-3'>
+                        <Col md='6' className='column'>
                             {/*FOR CHARACTER FIRSTNAME*/}
-                            <InputNameForAddStory 
-                                placeholder="Enter Character firstname"
-                                value={characterFirstName}
-                                setter={setCharacterFirstName} 
-                                randomGen={handleOnclickRandomFirstname}
-                            />
-                            {/*FOR CHARACTER CLASS*/}
-                            <InputForAddStory
-                                placeholder="Enter character Class"
-                                value={characterClass}
-                                setter={setCharacterClass}
-                                randomGen={axiosGenerateClass}
-                            />
-                            {/*FOR CHARACTER ENEMY FACTION*/}
-                            <InputForAddStory
-                                placeholder="Enter character enemy faction"
-                                value={characterEnemyFaction}
-                                setter={setCharacterEnemyFaction}
-                                randomGen={axiosGenFaction}
-                            />
-                        </div>
+                            <InputGroup className='mb-3'>
+                                <Form.Control
+                                    type="text" 
+                                    name="characterFirstName"
+                                    value={characterFirstName}
+                                    onChange={e=>setCharacterFirstName(e.currentTarget.value)}
+                                    placeholder={"Enter Character Firstname"}
+                                />
+                                <InputGroup.Append>
+                                    <Button
+                                        className="btn btn-primary" 
+                                        onClick={handleOnclickRandomFirstname(setCharacterFirstName)}
+                                        type="button"
+                                    >
+                                        Random!
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
 
-                        <div className='col-md-6 column'>
+                            {/*FOR CHARACTER CLASS*/}
+                            <InputGroup className='mb-3'>
+                                <Form.Control
+                                    type="text" 
+                                    name="characterFirstName"
+                                    value={characterClass}
+                                    onChange={e=>setCharacterClass(e.currentTarget.value)}
+                                    placeholder={"Enter Character Class"}
+                                />
+                                <InputGroup.Append>
+                                    <Button
+                                        className="btn btn-primary" 
+                                        onClick={()=>axiosGenerateClass(setCharacterClass)}
+                                        type="button"
+                                    >
+                                        Random!
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+
+
+                            {/*FOR CHARACTER ENEMY FACTION*/}
+                            <InputGroup className='mb-3'>
+                                <Form.Control
+                                    type="text" 
+                                    className="form-control"
+                                    name="characterFirstName"
+                                    value={characterEnemyFaction}
+                                    onChange={e=>setCharacterEnemyFaction(e.currentTarget.value)}
+                                    placeholder={"Enter Enemy Character Faction"}
+                                />
+                                <InputGroup.Append>
+                                    <Button
+                                        className="btn btn-primary" 
+                                        onClick={()=>axiosGenFaction(setCharacterEnemyFaction)}
+                                        type="button"
+                                    >
+                                        Random!
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+
+                        </Col>
+
+                        <Col md='6' className='column'>
                             {/*FOR CHARACTER LAST NAME*/}
-                            <InputNameForAddStory
-                                placeholder="Enter character lastname"
-                                value={characterLastName}
-                                setter={setCharacterLastName}
-                                randomGen={handleOnClickRandomLastname}
-                            />
+                            <InputGroup className='mb-3'>
+                                <Form.Control
+                                    type="text" 
+                                    name="characterFirstName"
+                                    value={characterLastName}
+                                    onChange={e=>setCharacterLastName(e.currentTarget.value)}
+                                    placeholder={"Enter Character Lastname"}
+                                />
+                                <InputGroup.Append>
+                                    <Button
+                                        className="btn btn-primary" 
+                                        onClick={handleOnClickRandomLastname(setCharacterLastName)}
+                                        type="button"
+                                    >
+                                        Random!
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
 
                             {/*FOR CHARACTER RACE*/}
-                            <InputForAddStory
-                                placeholder="Enter character race"
-                                value={characterRace}
-                                setter={setCharacterRace}
-                                randomGen={generateRandomRace}
-                            />
+                            <InputGroup className='mb-3'>
+                                <Form.Control
+                                    type="text" 
+                                    className="form-control"
+                                    name="characterFirstName"
+                                    value={characterRace}
+                                    onChange={e=>setCharacterRace(e.currentTarget.value)}
+                                    placeholder={"Enter Enemy Character Faction"}
+                                />
+                                <InputGroup.Append>
+                                    <Button
+                                        className="btn btn-primary" 
+                                        onClick={()=>generateRandomRace(setCharacterRace)}
+                                        type="button"
+                                    >
+                                        Random!
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
 
                             {/*FOR CHARACTER ENEMY NAME*/}
-                            <div className="input-group mb-3">
-                                <input 
+                            <InputGroup className='mb-3'>
+                                <Form.Control
                                     type="text" 
-                                    className="form-control" 
-                                    placeholder="Enter character enemy name"
+                                    name="characterFirstName"
                                     value={characterEnemyFullName}
-                                    onChange={e=>setCharacterEnemyFullName(e.currentTarget.value)}
+                                    onChange={e=>setCharacterLastName(e.currentTarget.value)}
+                                    placeholder={"Enter Enemy Character Name"}
                                 />
-                                <div className="input-group-append">
-                                    <button 
+                                <InputGroup.Append>
+                                    <Button
                                         className="btn btn-primary" 
+                                        onClick={()=>handleOnClickEnemyName(setCharacterEnemyFirstName,setCharacterEnemyLastName)}
                                         type="button"
-                                        onClick={()=>handleOnClickEnemyName(setCharacterEnemyFirstName, setCharacterEnemyLastName)}
-                                        >Random!
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                </div>
+                                    >
+                                        Random!
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+
+                        </Col>
+                </Row>
 
                 <div className='row d-flex justify-content-center'>
                     <div className='col-md-auto'>
@@ -371,30 +450,34 @@ const AddStory = ()=>{
 
                 <div className='row mt-2 d-flex justify-content-center'>
                     <div className='col-md-auto'>
-                        <button
-                            className="btn btn-outline-primary mr-5"
+                        <Button
+                            variant='outline-primary'
+                            className="mr-5"
                             onClick={handleOnClickClearInputs}
                         >
                             Clear
-                        </button>
-                        <button 
-                            className="btn btn-outline-primary ml-5"
+                        </Button>
+                        <Button 
+                            variant='outline-primary'
+                            className="ml-5"
                             onClick={handleOnClickGenerateStory}
                         >
                                 Generate Story
-                        </button>
+                        </Button>
                     </div>
                 </div>
 
                 <div className='row mt-4 d-flex justify-content-center w-100'>
                     <div className='col-md-auto '>
                         <ErrorText errorText={"PLEASE FILL OUT ALL THE INPUTS"} hasErrors={hasErrors}/> 
-                        <button
-                            className="btn btn-outline-primary btn-lg btn-block"
+                        <Button
+                            block
+                            size='lg'
+                            variant='outline-primary'
                             onClick={handleOnClickRegister}
                         >
                             SAVE STORY
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </section>

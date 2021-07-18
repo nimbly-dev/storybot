@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Col, Image, Row } from 'react-bootstrap'
 
 //Child components
 import Navigation from './@navigation/Navigation'
@@ -29,12 +30,10 @@ const UserProfile = ()=>{
             <main>
                 <Navigation currentPage={'Userprofile'}/>
                 <section className='container py-5 mb-5 '>
-                    <div className="row d-flex flex-wrap align-content-center">
-                        <div className="col-md-3">
+                    <Row className="d-flex flex-wrap align-content-center">
+                        <Col md='3'>
                             <div className='ml-5'>
-                                <img src={imgSrc} style={{
-                                    width: 150,
-                                }} 
+                                <Image src={imgSrc} roundedCircle width='150'
                                 alt={'Img src not found'}/>
                                 <h5 className='mt-3 '
                                 >Welcome back! {token.username}
@@ -45,18 +44,17 @@ const UserProfile = ()=>{
                                 currentFilterValue={filterValue}
                             />
                              <UserDashboard/>
-                        </div>
-                        <div className="col-md-9">
+                        </Col>
+                        <Col md='9'>
                             <DisplayUserStories 
                                 isFiltered={isFiltered} 
                                 filterValue={filterValue}
                             />
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                     
                 </section>
             </main>
-           
         )
     
         

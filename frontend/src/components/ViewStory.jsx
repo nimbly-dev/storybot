@@ -1,12 +1,9 @@
 import axios from 'axios'
 import {useEffect, useState} from 'react'
 
-
+// Child Components
 import Navigation from './@navigation/Navigation'
-import InputForViewStory from './@forms/InputForViewStory';
-
-
-import { ToggleButton,ToggleButtonGroup } from 'react-bootstrap';
+import { Button, Col, Form, InputGroup, Row, ToggleButton,ToggleButtonGroup } from 'react-bootstrap';
 import { URL_ROUTERS } from '../utility/strings'
 import { useParams,useHistory,useLocation } from 'react-router-dom'
 import TextAreaForViewStory from './@forms/TextAreaForViewStory';
@@ -37,13 +34,6 @@ const ViewStory = ()=>{
             setStoryTitle(response.data.title)
             setStoryCharacterName(response.data.character_name)
             setStoryIsShared(response.data.is_shared)
-            // if(response.data.is_shared === true)
-            //     setStoryIsShared(true)
-            // else
-            //     setStoryIsShared(false)
-
-
-            // console.log('isShare: '+ sharedValue)
         })
         .catch((error)=>{
             if (error.response) {
@@ -55,8 +45,8 @@ const ViewStory = ()=>{
         })
     }
 
-    const axiosUpdateStory = (e) =>{
-        e.preventDefault()
+    const axiosUpdateStory = () =>{
+        
         const formData = new FormData()
         
         formData.append("title", storyTitle)
@@ -94,8 +84,7 @@ const ViewStory = ()=>{
         history.replace(from)
     }
 
-    useEffect(axiosGetStory)
-    // console.log(storyIsShared)
+    useEffect(axiosGetStory,[])
 
     const handleIsSharedChange = (selectedValue) =>{
         setStoryIsShared(selectedValue)
@@ -105,72 +94,92 @@ const ViewStory = ()=>{
         <main>
             <Navigation currentPage={''}/>
             <section className='container d-flex justify-content-center'>
-                <div className='row'>
+                <Row>
                    
-                    <form onSubmit={(e)=>axiosUpdateStory(e)}>
-                        <div className="col-xs-12">
-                            <InputForViewStory 
-                                value={storyTitle}
-                                setter={setStoryTitle}
-                                labelText={"Title"}
-                            />
-                        </div>
-                    
-                        <InputForViewStory
-                            value={storyCharacterName}
-                            setter={setStoryTitle}
-                            labelText={"Character Name"}
-                        />
+                    <Form onSubmit={(e)=>axiosUpdateStory(e)}>
+                        <Col xs='12'>
+                            <InputGroup size='lg' className="mb-2 mr-sm-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text>
+                                        Title: 
+                                    </InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control 
+                                    type="text" 
+                                    className="form-control form-control-lg" 
+                                    defaultValue={storyTitle}
+                                    onChange={e=>setStoryTitle(e.currentTarget.value)}
+                                />
+                            </InputGroup>
                         
-                        <TextAreaForViewStory
-                            value={storyBody}
-                            setter={setStoryBody}
-                            labelText={"Click the textarea to edit your story"}
-                        />
+                            <InputGroup size='lg' className="mb-2 mr-sm-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text>
+                                        Character Name: 
+                                    </InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control 
+                                    type="text" 
+                                    className="form-control form-control-lg" 
+                                    defaultValue={storyCharacterName}
+                                    onChange={e=>setStoryCharacterName(e.currentTarget.value)}
+                                />
+                            </InputGroup>
 
-                        <ToggleButtonGroup  
-                            className="btn-group btn-group-toggle mb-5"
-                            type="radio" 
-                            name="options"
-                            // value={storyIsShared}
-                            value={storyIsShared}
-                            onChange={handleIsSharedChange}
-                        >
-                            <ToggleButton 
-                                variant="outline-primary"
-                                id="tbg-radio-1" 
-                                value={true}
-                                name='shared'
-                                type='radio'
+                            <TextAreaForViewStory
+                                value={storyBody}
+                                setter={setStoryBody}
+                                labelText={"Click the textarea to edit your story"}
+                            />
+
+                            <ToggleButtonGroup  
+                                className="btn-group btn-group-toggle mb-5"
+                                type="radio" 
+                                name="options"
+                                // value={storyIsShared}
+                                value={storyIsShared}
+                                onChange={handleIsSharedChange}
                             >
-                                Shared
-                            </ToggleButton>
-                            <ToggleButton 
-                                variant="outline-primary"
-                                id="tbg-radio-2"
-                                type='radio' 
-                                name='not_shared'
-                                value={false}
-                            >
-                                Not Shared
-                            </ToggleButton>
-                        </ToggleButtonGroup> 
+                                <ToggleButton 
+                                    variant="outline-primary"
+                                    id="tbg-radio-1" 
+                                    value={true}
+                                    name='shared'
+                                    type='radio'
+                                >
+                                    Shared
+                                </ToggleButton>
+                                <ToggleButton 
+                                    variant="outline-primary"
+                                    id="tbg-radio-2"
+                                    type='radio' 
+                                    name='not_shared'
+                                    value={false}
+                                >
+                                    Not Shared
+                                </ToggleButton>
+                            </ToggleButtonGroup> 
             
-                        <div className="form-group">
-                            <button 
-                                type="button" 
-                                onClick={handleCancelButton} 
-                                className="btn btn-outline-primary mr-3">
-                                Cancel
-                            </button>
-                            <button type="submit" 
-                                    className="btn btn-outline-primary ml-3"
-                                >Submit
-                            </button>
-                        </div>
-                    </form>
+                            <Form.Group>
+                                <Button 
+                                    type="button" 
+                                    onClick={handleCancelButton} 
+                                    className="mr-3"
+                                    variant='danger'
+                                >
+                                    Cancel
+                                </Button>
+                                <Button type="submit" 
+                                        className="ml-3"
+                                        variant='primary'
+                                >
+                                    Submit
+                                </Button>
+                            </Form.Group >
+                        </Col>
+                    </Form>
                     
-                </div>
+                </Row>
             </section>
         </main>
     )
