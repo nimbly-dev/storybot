@@ -1,5 +1,9 @@
 from typing import List, Optional
+import typing
 from pydantic import BaseModel, fields
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql.functions import user
+
 
 # Schema for base backgroundstorybase
 class BackgroundStoryBase(BaseModel):
@@ -22,7 +26,15 @@ class BackgroundStory(BaseModel):
 class ShowAllBackgroundStoryUser(BaseModel):
     user_id: int
     saved_background_stories: List[BackgroundStory] = []
-    # generated_bg_stories (Todo)
+
+    class Config:
+        orm_mode = True
+
+
+# Schema for User obj
+class GetUser(BaseModel):
+    username: str
+    id: int
 
     class Config:
         orm_mode = True
@@ -30,9 +42,12 @@ class ShowAllBackgroundStoryUser(BaseModel):
 
 # Schema for showing shared background story of users
 class ShowSharedBackgroundStories(BaseModel):
+    id: int
+    creator: GetUser
     title: str
     body: str
     character_name: str
+    is_shared: bool
 
     class Config:
         orm_mode = True
@@ -41,6 +56,7 @@ class ShowSharedBackgroundStories(BaseModel):
 # Schema for showing specific background story by id
 class ShowBackgroundStory(BaseModel):
     id: int
+    creator: GetUser
     title: str
     body: str
     character_name: str

@@ -1,29 +1,20 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
+import { axiosGetSharedBackgroundStories } from "../@methods/BackgroundStory";
 
+import { Link } from "react-router-dom";
+import StoryLink from "./StoryLink";
+import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
+import ViewButton from "./ViewButton";
+import { Button } from "react-bootstrap";
 
-//Import 3rd party libraries
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+const DisplaySharedUserStories = ({isFiltered, filterValue})=>{
+    const [sharedStories, setSharedStories] = useState([])
 
-//Import backend Routers
-import { URL_ROUTERS } from '../../utility/strings';
-
-//Import Child components
-import StoryLink from './StoryLink';
-import EditButton from './EditButton';
-import DeleteButton from './DeleteButton';
-import { axiosGetStories } from '../@methods/BackgroundStory';
-
-
-const DisplayUserStories = ({isFiltered, filterValue})=>{
-    const token = JSON.parse(localStorage.getItem('token'))
-    const [userStories, setUserStories] = useState([])
-
-
-    useEffect(()=>axiosGetStories(token,setUserStories),[])
+    useEffect(()=>axiosGetSharedBackgroundStories(setSharedStories),[])
 
     if(isFiltered === true){  //User usesfilter 
-        const filtered = userStories.filter((story)=>{
+        const filtered = sharedStories.filter((story)=>{
             if (story.title.includes(filterValue))
                 return true
             else return false
@@ -34,6 +25,7 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
                 <th scope='col'>#</th>
                 <th scope='col'>Story</th>
                 <th scope='col'>Character Name</th>
+                <th scope='col'>Creator</th>
                 <th scope='col'>Actions</th>
             </thead>
             <tbody>
@@ -47,8 +39,17 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
                             <td>
                                 {story.character_name}
                             </td>
-                            <EditButton id={story.id} storyTitle={story.title}/>
-                            <DeleteButton id={story.id} storyTitle={story.title}/>
+                            <td>
+                                {story.creator.username}
+                            </td>
+                            <ViewButton id={story.id} storyTitle={story.title}/>
+                            <Button
+                                variant='danger'
+                                size='sm'
+                            >
+                               <span class="fas fa-heart mr-1"></span>
+                                20 Likes
+                            </Button>
                         </tr>
                     )
                 })}
@@ -62,10 +63,11 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
                     <th scope='col'>#</th>
                     <th scope='col'>Story</th>
                     <th scope='col'>Character Name</th>
+                    <th scope='col'>Creator</th>
                     <th scope='col'>Actions</th>
                 </thead>
                 <tbody>
-                    {userStories.map((story,idx)=>{
+                    {sharedStories.map((story,idx)=>{
                         return (
                             <tr>
                                 <th scope="row">{idx+1}</th>
@@ -75,8 +77,17 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
                                 <td>
                                     {story.character_name}
                                 </td>
-                                <EditButton id={story.id} storyTitle={story.title}/>
-                                <DeleteButton id={story.id} storyTitle={story.title}/>
+                                <td>
+                                    {story.creator.username}
+                                </td>
+                                <ViewButton id={story.id} storyTitle={story.title}/>
+                                <Button
+                                variant='danger'
+                                size='sm'
+                                >
+                                <span class="fas fa-heart mr-1"></span>
+                                    20 Likes
+                                </Button>
                             </tr>
                         )
                     })}
@@ -86,4 +97,4 @@ const DisplayUserStories = ({isFiltered, filterValue})=>{
     }
 }
 
-export default DisplayUserStories
+export default DisplaySharedUserStories

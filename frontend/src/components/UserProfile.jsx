@@ -52,7 +52,6 @@ const UserProfile = ()=>{
                             />
                         </Col>
                     </Row>
-                    
                 </section>
             </main>
         )

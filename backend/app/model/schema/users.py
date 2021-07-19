@@ -1,5 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel, fields
+from sqlalchemy.sql.functions import user
 
 from app.model.schema.background_story import BackgroundStory
 
@@ -16,6 +17,13 @@ class ShowUser(BaseModel):
     username: str
     saved_background_stories: List[BackgroundStory] = []
     # generated_bg_stories (Todo)
+
+    class Config:
+        orm_mode = True
+
+
+class ShowUsername(BaseModel):
+    username: str
 
     class Config:
         orm_mode = True

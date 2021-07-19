@@ -1,6 +1,9 @@
 import React, {  } from 'react';
 import { useForm } from "react-hook-form";
 
+//Routers
+import { axiosRegisterUser } from './@methods/User';
+
 //Import URL Paths
 import { URL_ROUTERS } from "../utility/strings"
 
@@ -11,6 +14,7 @@ import axios from 'axios';
 import {Link, useHistory,useLocation} from 'react-router-dom'
 import { Col, Form, Row,Button } from 'react-bootstrap';
 
+
 const Register = ()=>{
     const schema = yup.object().shape({
         username: yup.string().required('Username field is required'),
@@ -18,6 +22,7 @@ const Register = ()=>{
         password: yup.string()
             .required('Password field is required')
             .min(1, 'Password is too short - should be 8 chars minimum.'),
+            
         confirmPassword: yup.string()
             .required()
             .oneOf([yup.ref('password'), null],'Password do not match')
@@ -40,32 +45,7 @@ const Register = ()=>{
         formData.append("email", data.email)
         formData.append("password",  data.password)
 
-        axiosRegister(formData)
-    }
-    
-
-    const axiosRegister = async (formData)=>{
-        axios.post(URL_ROUTERS.base_url_create_account,{
-                username: formData.get("username"),
-                email: formData.get("email"),
-                password: formData.get("password"),
-        })
-        .then((response)=>{
-            console.log('Creating New Account')
-            const result = response.data
-            console.log(result)
-            const { from } = location.state || { from: { pathname: "/login" } };
-            history.replace(from)
-        })
-        .catch((error)=>{
-            if (error.response) {
-                console.log("HAS ERROR")
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            }
-        })
-
+        axiosRegisterUser(formData,location,history)
     }
 
     return(

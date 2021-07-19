@@ -12,6 +12,7 @@ import PrivateRoute from './components/@authentication/PrivateRoute'
 
 //Import react routing
 import { BrowserRouter as Router, Switch, Route, useHistory, Redirect } from 'react-router-dom'
+import SharedStories from './components/SharedStories'
 
 // const ROBOT_ICON_URL = 'https://i.pinimg.com/originals/a7/98/42/a79842bfa9a2d36047d3478a944b8506.gif'
 
@@ -33,7 +34,9 @@ const App = () =>{
                 {/* PRIVATE ROUTES THAT NEED THE USER TO BE LOGGED IN */}
                 <PrivateRoute exact component={UserProfile} path={'/userprofile'} />
                 <PrivateRoute exact component={AddStory} path={'/addstory'}/>
+                <PrivateRoute exact component={SharedStories} path={'/shared'}/>
                 <PrivateRoute component={ViewStory} path={'/background-story/:id'}/>
+                
 
                 {/* IF PAGE NOT FOUND */}
                 <Route path="/404" component={PageNotFound} />

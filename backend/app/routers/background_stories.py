@@ -12,7 +12,6 @@ from app.model.schema.background_story import (
     BackgroundStory,
     ShowBackgroundStory,
     BackgroundStoryBase,
-    ShowAllBackgroundStoryUser,
     ShowSharedBackgroundStories,
 )
 
@@ -49,6 +48,7 @@ def get_shared_background_stories(
     db: Session = Depends(database.get_db),
     current_user: User = Depends(oauth2.get_current_user),
 ):
+    # get_username = db.query(db_models.User)
     shared_background_stories = list(
         db.query(db_models.BackgroundStory).filter(
             db_models.BackgroundStory.is_shared == True
@@ -105,11 +105,11 @@ def get_background_story(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Background story with the id {id} is not found",
         )
-    if current_user.id != background_story.user_id:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail=f"You do not have access to this background story",
-        )
+    # if current_user.id != background_story.user_id:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_403_FORBIDDEN,
+    #         detail=f"You do not have access to this background story",
+    #     )
     return background_story
 
 
@@ -180,3 +180,40 @@ def delete_background_story(
     background_story.delete(synchronize_session=False)
     db.commit()
     return {"Success": "Background story with id {id} has been deleted"}
+
+
+# Copy background story by id
+@router.post(
+    "/copy/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    description="Copy a shared story by ID",
+)
+def copy_shared_story(
+    id,
+    db: Session = Depends(database.get_db),
+    current_user: User = Depends(oauth2.get_current_user),
+):
+    background_story = db.query(db_models.BackgroundStory).filter(
+        db_models.BackgroundStory.id == id
+    )
+    if not background_story.first():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Background story with id {id} is not found",
+        )
+    if background_story.first().is_shared == False:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"The story is not shared",
+        )
+    new_background_story = db_models.BackgroundStory(
+        title=background_story.first().title,
+        body=background_story.first().body,
+        character_name=background_story.first().character_name,
+        is_shared=False,
+        user_id=current_user.id,
+    )
+    db.add(new_background_story)
+    db.commit()
+    db.refresh(new_background_story)
+    return new_background_story

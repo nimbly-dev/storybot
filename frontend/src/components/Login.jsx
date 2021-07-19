@@ -10,6 +10,7 @@ import ErrorText from './@error_text/ErrorText';
 
 //Import utility
 import { URL_ROUTERS } from '../utility/strings.js'
+import { axiosLoginUser } from './@methods/User';
 
 const INVALID_LOGIN_CREDENTIAL = "Invalid Login Credentials"
 
@@ -24,46 +25,10 @@ const Login = ()=>{
 
     const handleLogin = (event)=>{
         event.preventDefault()
-        axiosLogin()
+        axiosLoginUser(username,password,setHasError,location,history)
     }
 
     const ROBOT_ICON_URL = 'https://i.pinimg.com/originals/a7/98/42/a79842bfa9a2d36047d3478a944b8506.gif'
-
-    const axiosLogin =  () =>{
-        let formdata = new FormData()
-
-        formdata.append("username", username)
-        formdata.append("password", password)
-        
-        axios.post(URL_ROUTERS.base_url_login,formdata)
-        .then((response)=>{ 
-            console.log('Logged in')
-            if (response.statusText === 404){
-                setHasError(true)
-                throw new Error("User credentials not found")
-            }
-            if (response.statusText === 422){
-                setHasError(true)
-                throw new Error("Unproccesable entity")
-            }
-            const result = response.data
-
-            localStorage.setItem('isAuthenticated',true)
-            localStorage.setItem('token', JSON.stringify(result))
-            const { from } = location.state || { from: { pathname: "/userprofile" } };
-            history.replace(from)
-            console.log(result)
-        })
-        .catch((error)=>{
-            if (error.response) {
-                console.log("HAS ERROR")
-                setHasError(true)
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            }
-        })
-    }
 
     return(
         <section className='container' id='login-form'>

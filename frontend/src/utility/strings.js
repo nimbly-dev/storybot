@@ -1,11 +1,3 @@
-
-export let URL_ROUTERS = {
-    base_url :  'http://127.0.0.1:8000/',
-    base_url_login : 'http://127.0.0.1:8000/login',
-    base_url_create_account : 'http://127.0.0.1:8000/user',
-    base_url_get_user_background_story : 'http://127.0.0.1:8000/background-story',
-}
-
 export let GEN_HUMAN_ROUTERS = {
     url_gen_male_firstname: 'http://127.0.0.1:8000/random-gen/human-male-firstname',
     url_gen_female_firstname: 'http://127.0.0.1:8000/random-gen/human-female-firstname',
@@ -56,6 +48,8 @@ export let GEN_BACKGROUND_STORY = {
 
 export let URL_BACKGROUND_STORY = {
     base_url_background_story : 'http://127.0.0.1:8000/background-story',
+    base_url_shared_background_stories: 'http://127.0.0.1:8000/background-story/shared-background-stories',
+    base_url_copy_shared_background_story: 'http://127.0.0.1:8000/background-story/copy'
 }
 
 export let URL_USER = {

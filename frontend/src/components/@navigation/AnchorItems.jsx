@@ -19,22 +19,27 @@ const AnchorItems = ({currentPage})=>{
         history.replace(from)
     }
 
+    const handleSharedRedirect = ()=>{
+        const { from } = location.state || { from: { pathname: "/shared" } };
+        history.replace(from)
+      }
+
     if(currentPage === 'Userprofile') {
         return(
             <ul className="navbar-nav justify-content-between ml-auto">
                 <li className="nav-item">
-                    <a className="nav-link text-light text-muted"  href="#browse">
+                    <a onClick={handleSharedRedirect} className="nav-link text-light text-muted"  href="# ">
                         Browse
                     </a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link active text-light" href="#userprofile">User Profile</a>
+                    <a className="nav-link active text-light" href="# ">User Profile</a>
                 </li>
                 <li className="nav-item">
-                    <a onClick={handleAddStoryRedirect} className="nav-link text-light text-muted" href="#addstory">Add Story</a>
+                    <a onClick={handleAddStoryRedirect} className="nav-link text-light text-muted" href="# ">Add Story</a>
                 </li>
                 <li class="nav-item">
-                    <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>
+                    <a onClick={handleLogout} className="nav-link text-light text-muted" href="# ">Logout</a>
                 </li>
             </ul>
         )
@@ -43,18 +48,18 @@ const AnchorItems = ({currentPage})=>{
         return(
             <ul className="navbar-nav justify-content-between ml-auto">
                 <li className="nav-item">
-                    <a className="nav-link text-light active" href="#">
+                    <a className="nav-link text-light active" href="# ">
                         Browse
                     </a>
                 </li>
                 <li className="nav-item">
-                    <a onClick={handleUserprofileRedirect} className="nav-link text-light text-muted" href="#userprofile">User Profile</a>
+                    <a onClick={handleUserprofileRedirect} className="nav-link text-light text-muted" href="# ">User Profile</a>
                 </li>
                 <li className="nav-item">
-                    <a onClick={handleAddStoryRedirect} className="nav-link text-light text-muted" href="#addstory">Add Story</a>
+                    <a onClick={handleAddStoryRedirect} className="nav-link text-light text-muted" href="# ">Add Story</a>
                 </li>
                 <li class="nav-item">
-                    <a onClick={handleLogout} className="nav-link text-light text-muted" href="#logout">Logout</a>
+                    <a onClick={handleLogout} className="nav-link text-light text-muted" href="# ">Logout</a>
                 </li>
             </ul>
         )
@@ -63,7 +68,7 @@ const AnchorItems = ({currentPage})=>{
         return(
         <ul className="navbar-nav justify-content-between ml-auto">
             <li className="nav-item">
-                <a className="nav-link text-light text-muted" href="#">
+                <a onClick={handleSharedRedirect} className="nav-link text-light text-muted" href="# ">
                     Browse
                 </a>
             </li>
@@ -83,7 +88,7 @@ const AnchorItems = ({currentPage})=>{
         return(
             <ul className="navbar-nav justify-content-between ml-auto">
                 <li className="nav-item">
-                    <a className="nav-link text-light text-muted" href="#">
+                    <a onClick={handleSharedRedirect} className="nav-link text-light text-muted" href=" ">
                         Browse
                     </a>
                 </li>
