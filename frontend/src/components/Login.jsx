@@ -2,14 +2,12 @@ import React, {useState} from 'react';
 import {Link, useHistory, useLocation } from 'react-router-dom'
 
 //Import 3rd party libraries
-import axios from 'axios';
 import { Col, Row, Form, Button } from 'react-bootstrap';
 
 //Import child components
 import ErrorText from './@error_text/ErrorText';
 
 //Import utility
-import { URL_ROUTERS } from '../utility/strings.js'
 import { axiosLoginUser } from './@methods/User';
 
 const INVALID_LOGIN_CREDENTIAL = "Invalid Login Credentials"

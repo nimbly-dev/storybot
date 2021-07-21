@@ -1,6 +1,6 @@
 import { axiosDeleteUserBackgroundStory } from "../@methods/BackgroundStory"
 
-const DeleteButton = ({id,storyTitle})=>{
+const DeleteButton = ({id})=>{
     return(
         <button
             onClick={()=>axiosDeleteUserBackgroundStory(id)} 

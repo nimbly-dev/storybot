@@ -4,9 +4,7 @@ import {useEffect, useState} from 'react'
 // Child Components
 import Navigation from './@navigation/Navigation'
 import { Button, Col, Form, InputGroup, Row, ToggleButton,ToggleButtonGroup } from 'react-bootstrap';
-import { URL_BACKGROUND_STORY, URL_ROUTERS } from '../utility/strings'
 import { useParams,useHistory,useLocation } from 'react-router-dom'
-import TextAreaForViewStory from './@forms/TextAreaForViewStory';
 import { axiosCopySharedStory, axiosGetStory, axiosUpdateStory } from './@methods/BackgroundStory';
 
 const ViewStory = ()=>{
@@ -93,12 +91,16 @@ const ViewStory = ()=>{
                                         onChange={e=>setStoryCharacterName(e.currentTarget.value)}
                                     />
                                 </InputGroup>
-    
-                                <TextAreaForViewStory
-                                    value={storyBody}
-                                    setter={setStoryBody}
-                                    labelText={"Click the textarea to edit your story"}
-                                />
+
+                                <div className="form-group form-group-lg">
+                                            <label for="textAreaBody">Character Story: </label>
+                                            <textarea 
+                                            className="form-control" 
+                                            value={storyBody}
+                                            onChange={e=>setStoryBody(e.currentTarget.value)}
+                                            rows="5"
+                                            />
+                                </div>
     
                                 <ToggleButtonGroup  
                                     className="btn-group btn-group-toggle mb-5"
@@ -216,7 +218,7 @@ const ViewStory = ()=>{
 
                                 
                                 <div className="form-group form-group-lg">
-                                    <label for="textAreaBody">Story: </label>
+                                    <label for="textAreaBody">Character Story: </label>
                                     <textarea 
                                     disabled
                                     className="form-control" 

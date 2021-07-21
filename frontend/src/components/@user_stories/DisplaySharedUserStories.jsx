@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { axiosGetSharedBackgroundStories } from "../@methods/BackgroundStory";
 
-import { Link } from "react-router-dom";
 import StoryLink from "./StoryLink";
-import DeleteButton from "./DeleteButton";
-import EditButton from "./EditButton";
 import ViewButton from "./ViewButton";
 import { Button } from "react-bootstrap";
 

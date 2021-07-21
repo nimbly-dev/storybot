@@ -3,7 +3,6 @@ import { useState} from "react"
 
 //Import created components
 import Navigation from "./@navigation/Navigation";
-import TextAreaForAddStory from "./@forms/TextAreaForAddStory";
 import ErrorText from "./@error_text/ErrorText";
 
 //Import third party libraroes
@@ -441,17 +440,23 @@ const AddStory = ()=>{
                 {/* FOR GENERATED STORY TEXT */}
                 <div className='row mt-3 d -flex justify-content-center'>
                     <div className='col-md-auto w-100'>
-                        <TextAreaForAddStory
-                            value={generatedCharStory}
-                            setter={setGeneratedCharStory}
-                        />
+                        <div className="form-group">
+                            <label for="textAreaBody">Click the textarea to edit your generated story: </label>
+                            <textarea 
+                                placeholder="Generated Story Text are generated here"
+                                className="form-control" 
+                                value={generatedCharStory}
+                                onChange={e=>setGeneratedCharStory(e.currentTarget.value)}
+                                rows="5"
+                            />
+                        </div>
                     </div>
                 </div>
 
                 <div className='row mt-2 d-flex justify-content-center'>
                     <div className='col-md-auto'>
                         <Button
-                            variant='outline-primary'
+                            variant='outline-danger'
                             className="mr-5"
                             onClick={handleOnClickClearInputs}
                         >
@@ -473,7 +478,7 @@ const AddStory = ()=>{
                         <Button
                             block
                             size='lg'
-                            variant='outline-primary'
+                            variant='primary'
                             onClick={handleOnClickRegister}
                         >
                             SAVE STORY

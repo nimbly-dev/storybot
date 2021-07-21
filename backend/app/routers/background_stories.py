@@ -105,11 +105,6 @@ def get_background_story(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Background story with the id {id} is not found",
         )
-    # if current_user.id != background_story.user_id:
-    #     raise HTTPException(
-    #         status_code=status.HTTP_403_FORBIDDEN,
-    #         detail=f"You do not have access to this background story",
-    #     )
     return background_story
 
 

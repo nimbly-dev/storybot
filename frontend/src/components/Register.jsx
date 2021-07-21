@@ -5,12 +5,10 @@ import { useForm } from "react-hook-form";
 import { axiosRegisterUser } from './@methods/User';
 
 //Import URL Paths
-import { URL_ROUTERS } from "../utility/strings"
 
 //Import third libraries
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import axios from 'axios';
 import {Link, useHistory,useLocation} from 'react-router-dom'
 import { Col, Form, Row,Button } from 'react-bootstrap';
 
