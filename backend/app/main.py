@@ -7,6 +7,10 @@ from app.model import db_models
 from app.utilities.database import engine
 
 
+fake_db = {}
+fake_humanfirstname = "apple"
+
+
 app = FastAPI()
 
 

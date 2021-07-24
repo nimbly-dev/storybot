@@ -3,4 +3,4 @@ storybot
 .vscode
 __pycache__
 objects.txt
-storybot.db
+.pytest_cache

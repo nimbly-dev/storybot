@@ -111,7 +111,7 @@ def gen_dwarf_lastname():
 
 
 @router.get(
-    "/orc-firstname",
+    "/orc-male-name",
     status_code=200,
     description="Generate a orc male name",
 )
@@ -120,7 +120,7 @@ def gen_orc_male_name():
 
 
 @router.get(
-    "/orc-lastname",
+    "/orc-female-name",
     status_code=200,
     description="Generate a orc female name",
 )
