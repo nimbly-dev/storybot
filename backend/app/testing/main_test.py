@@ -1,3 +1,4 @@
+from app.utilities import oauth2
 import base64
 from app.utilities.token import create_access_token
 from fastapi.param_functions import Depends
@@ -88,7 +89,7 @@ def test_gen_faction():
     assert response.status_code == 200
     assert response.json() != None
 
-def test_gen_faction():
+def test_gen_background_story():
     response = client.post("/random-gen/generate-background-story"
     ,json={
         "race" : "Human",
@@ -100,7 +101,7 @@ def test_gen_faction():
     assert response.status_code == 200
     assert response.json() != None
 
-def test_gen_faction():
+def test_gen_title():
     response = client.get("/random-gen/title")
     assert response.status_code == 200
     assert response.json() != None
@@ -146,28 +147,31 @@ def test_create_user():
     assert response.json()['username'] == "new_user"
     assert response.json()['email'] == "thisIsANewUser@newuser.com"
 
-def test_get_user_by_id():
-    response = client.get("/user/1")
-    assert response.status_code == 200
-    assert response.json()['username'] == "hello"
+# def test_get_user_by_id():
+#     response = client.get("/user/1")
+#     assert response.status_code == 200
+#     assert response.json()['username'] == "hello"
 
 
 # BACKGROUND STORY ENDPOINT VALIDATION TEST
 #======================================================================================================================
 '''
-    DEFAULT USER IS "Hello"
+    DEFAULT USER IS "hello"
 
     TEST PASSED IF:
         1. Status Code is 201
         2. response.json() is equal to what is sended on the endpoint or is not Empty
 '''
 def test_create_background_story():
-    access_token = base64.b64encode(b"hello:password").decode("utf-8")
-    response = client.post("/background-story"
-        ,headers={
-            'Authorization' : 'Bearer '+access_token,
-            'Content-type' : 'application/json'
-        }
+    access_token = {
+        'username' : 'hello',
+        'password' : 'password'
+    }
+    verified_token = oauth2.get_current_user("hello")
+    print('Bearer '+ verified_token)
+    client.headers["Content-Type"] = f'application/json'
+    client.headers["Authorization"] = f'Bearer {access_token}'
+    response = client.post("/background-story/"
         ,json={
             "user_id" : 1,
             "title" : "Test Story",
