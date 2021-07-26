@@ -70,6 +70,16 @@ def create_background_story(
     db: Session = Depends(database.get_db),
     current_user: User = Depends(oauth2.get_current_user),
 ):
+    if (
+        request.title.isdigit()
+        or request.body.isdigit()
+        or request.character_name.isdigit()
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Input provided are not valid",
+        )
+
     new_background_story = db_models.BackgroundStory(
         title=request.title,
         body=request.body,
@@ -133,7 +143,15 @@ def update_background_story(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"You do not have access to this background story",
         )
-
+    if (
+        request.title.isdigit()
+        or request.body.isdigit()
+        or request.character_name.isdigit()
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Input provided are not valid",
+        )
     background_story.update(
         {
             "title": request.title,
@@ -143,7 +161,7 @@ def update_background_story(
         }
     )
     db.commit()
-    return {"Update": "Background story with id {id} has been updated"}
+    return {"Update": f"Background story with id {id} has been updated"}
 
 
 # Delete a background story by id

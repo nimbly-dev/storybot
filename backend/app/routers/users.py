@@ -15,6 +15,11 @@ router = APIRouter(prefix="/user", tags={"Users"})
 # CREATING A USER
 @router.post("")
 def create_user(request: CreateNewUser, db: Session = Depends(database.get_db)):
+    if request.username.isdigit():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"INVALID INPUTS",
+        )
     new_user = db_models.User(
         username=request.username,
         password=hashing.Hash.bcrpyt(request.password),

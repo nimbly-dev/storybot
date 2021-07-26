@@ -2,11 +2,8 @@ import {useEffect, useState} from 'react'
 
 
 //Import 3rd party libraries
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 //Import backend Routers
-import { URL_ROUTERS } from '../../utility/strings';
 
 //Import Child components
 import StoryLink from './StoryLink';
