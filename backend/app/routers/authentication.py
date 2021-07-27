@@ -10,7 +10,7 @@ from app.model.schema.users import ShowUser, User
 
 from app.utilities.hashing import Hash
 from app.utilities import token, oauth2, database
-
+from app.logs.Logging import create_authentication_log as auth_log
 
 router = APIRouter(tags={"Authentication"})
 
@@ -36,6 +36,7 @@ def login(
     access_token = token.create_access_token(
         data={"sub": user.username, "user_id": user.id}
     )
+    auth_log(f'Logged in {request.username}')
     return {
         "username": user.username,
         "access_token": access_token,
@@ -46,4 +47,5 @@ def login(
 
 @router.get("/test")
 async def read_users_me():
+    auth_log("Auth Test")
     return {"Desc": "Hello world"}

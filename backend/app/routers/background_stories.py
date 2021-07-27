@@ -1,3 +1,4 @@
+from app.logs.Logging import create_background_story_log
 from fastapi import APIRouter, HTTPException, status
 from fastapi.params import Depends
 from typing import List
@@ -34,6 +35,7 @@ def get_all_background_story(
         )
     )
     # user_background_story = db.query(db_models.BackgroundStory).all()
+    create_background_story_log(f'{current_user.id} has accessed his/her background story')
     return background_stories_of_current_user
 
 
@@ -54,7 +56,7 @@ def get_shared_background_stories(
             db_models.BackgroundStory.is_shared == True
         )
     )
-
+    create_background_story_log(f'{current_user.id} has accessed all shared background story')
     return shared_background_stories
 
 
@@ -87,6 +89,7 @@ def create_background_story(
         is_shared=request.is_shared,
         user_id=current_user.id,
     )
+    create_background_story_log(f'{current_user.id} has created new bgstory')
     db.add(new_background_story)
     db.commit()
     db.refresh(new_background_story)
@@ -115,6 +118,7 @@ def get_background_story(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Background story with the id {id} is not found",
         )
+    create_background_story_log(f'{current_user.id} has accessed bgstory {background_story.id}')
     return background_story
 
 
@@ -139,6 +143,7 @@ def update_background_story(
             detail=f"Background story with id {id} is not found",
         )
     if current_user.id != background_story.first().user_id:
+        create_background_story_log(f'User with id {current_user.id} has illegally accessed bgstory with id {id}')
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"You do not have access to this background story",
@@ -161,6 +166,7 @@ def update_background_story(
         }
     )
     db.commit()
+    create_background_story_log(f'{current_user.id} has updated bgstory {id}')
     return {"Update": f"Background story with id {id} has been updated"}
 
 
@@ -185,6 +191,7 @@ def delete_background_story(
             detail=f"Background story with id {id} not found",
         )
     if current_user.id != background_story.first().user_id:
+        create_background_story_log(f'User with id {current_user.id} has illegally accessed bgstory with id {id}')
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"You do not have access to this background story",
@@ -192,6 +199,7 @@ def delete_background_story(
 
     background_story.delete(synchronize_session=False)
     db.commit()
+    create_background_story_log(f'User with {current_user.id} id has deleted bgstory id {id}')
     return {"Success": "Background story with id {id} has been deleted"}
 
 
@@ -215,6 +223,7 @@ def copy_shared_story(
             detail=f"Background story with id {id} is not found",
         )
     if background_story.first().is_shared == False:
+        create_background_story_log(f'User with id {current_user.id} has illegally accessed bgstory with id {id}')
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"The story is not shared",
@@ -229,4 +238,5 @@ def copy_shared_story(
     db.add(new_background_story)
     db.commit()
     db.refresh(new_background_story)
+    create_background_story_log(f'User with {current_user.id} has copied bgstory id {id} ')
     return new_background_story

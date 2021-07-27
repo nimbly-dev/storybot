@@ -1,0 +1,5 @@
+2021-07-27 18:09:20.983415: 1 has created new bgstory
+2021-07-27 18:09:20.983415: 1 has accessed his/her background story
+2021-07-27 18:09:20.983415: 1 has updated bgstory 1
+2021-07-27 18:09:20.983415: 1 has accessed all shared background story
+2021-07-27 18:09:20.983415: 1 has accessed bgstory 1

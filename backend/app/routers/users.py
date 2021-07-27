@@ -1,3 +1,4 @@
+from app.logs.Logging import create_users_log
 from app.model.schema.authentication import TokenData
 from app import routers
 from fastapi import APIRouter, HTTPException, status, Request
@@ -25,6 +26,7 @@ def create_user(request: CreateNewUser, db: Session = Depends(database.get_db)):
         password=hashing.Hash.bcrpyt(request.password),
         email=request.email,
     )
+    create_users_log(f'User {request.username} has been created')
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -39,4 +41,5 @@ def get_user(id: int, db: Session = Depends(database.get_db)):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {id} not found"
         )
+    create_users_log(f'User {user.username} details has been accessed')
     return user

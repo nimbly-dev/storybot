@@ -1,0 +1,15 @@
+2021-07-27 18:09:20.983415: Gen male human fname
+2021-07-27 18:09:20.983415: Gen female human fname
+2021-07-27 18:09:20.983415: Gen human lname
+2021-07-27 18:09:20.983415: Gen male elf fname
+2021-07-27 18:09:20.983415: Gen female elf fname
+2021-07-27 18:09:20.983415: Gen female elf lname
+2021-07-27 18:09:20.983415: Gen male dwarf fname
+2021-07-27 18:09:20.983415: Gen female dwarf fname
+2021-07-27 18:09:20.983415: Gen dwarf lname
+2021-07-27 18:09:20.983415: Gen male orc name
+2021-07-27 18:09:20.983415: Gen female orc name
+2021-07-27 18:09:20.983415: Gen class name
+2021-07-27 18:09:20.983415: Gen faction name
+2021-07-27 18:09:20.983415: Gen created bgstory
+2021-07-27 18:09:20.983415: Gen title

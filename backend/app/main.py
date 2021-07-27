@@ -1,3 +1,8 @@
+import logging
+
+from logging.config import dictConfig
+from my_logging import log_config
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,13 +11,9 @@ from app.routers import users, background_stories, authentication, random_gen
 from app.model import db_models
 from app.utilities.database import engine
 
+dictConfig(log_config)
 
-fake_db = {}
-fake_humanfirstname = "apple"
-
-
-app = FastAPI()
-
+app = FastAPI(debug=True)
 
 origins = [
     "http://localhost.tiangolo.com",

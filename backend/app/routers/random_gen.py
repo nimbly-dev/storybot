@@ -1,3 +1,4 @@
+from app.logs.Logging import create_random_gen_log
 from fastapi import APIRouter, HTTPException, status
 from fastapi.params import Depends
 from typing import List
@@ -26,6 +27,7 @@ router = APIRouter(prefix="/random-gen", tags={"Random-Genarator"})
     description="Generates a random male human firstname",
 )
 async def gen_human_male_firstname():
+    create_random_gen_log("Gen male human fname")
     return random.choice(data_dict["data"]["human"]["names"]["male_name"])
 
 
@@ -36,16 +38,18 @@ async def gen_human_male_firstname():
     description="Generates a random female human firstname",
 )
 def gen_human_female_firstname():
+    create_random_gen_log("Gen female human fname")
     return random.choice(data_dict["data"]["human"]["names"]["female_name"])
 
 
-# Generate Random Female Human Firstname
+# Generate Random  Human Lastname
 @router.get(
     "/human-lastname",
     status_code=200,
     description="Generates a random human lastname",
 )
 def gen_human_lastname():
+    create_random_gen_log("Gen human lname")
     return f'{random.choice(data_dict["data"]["human"]["names"]["lastname_first_word"]).capitalize()}{random.choice(data_dict["data"]["human"]["names"]["lastname_second_word"])}'
 
 
@@ -55,6 +59,7 @@ def gen_human_lastname():
     description="Generate a random elf male firstname",
 )
 def gen_elf_male_firstname():
+    create_random_gen_log("Gen male elf fname")
     return random.choice(data_dict["data"]["elf"]["names"]["male_name"])
 
 
@@ -64,6 +69,7 @@ def gen_elf_male_firstname():
     description="Generate a random elf female firstname",
 )
 def gen_elf_female_firstname():
+    create_random_gen_log("Gen female elf fname")
     return random.choice(data_dict["data"]["elf"]["names"]["female_name"])
 
 
@@ -71,6 +77,7 @@ def gen_elf_female_firstname():
     "/elf-lastname", status_code=200, description="Generate a random elf lastname"
 )
 def gen_elf_lastname():
+    create_random_gen_log("Gen female elf lname")
     return f'{random.choice(data_dict["data"]["elf"]["names"]["lastname_prefix"]).capitalize()}{random.choice(data_dict["data"]["elf"]["names"]["lastname_suffix"])}'
 
 
@@ -80,6 +87,7 @@ def gen_elf_lastname():
     description="Generate a alternative elf lastname",
 )
 def gen_elf_alternative_lastname():
+    create_random_gen_log("Gen elf alt lname")
     return random.choice(data_dict["data"]["elf"]["names"]["lastname_whole"])
 
 
@@ -89,6 +97,7 @@ def gen_elf_alternative_lastname():
     description="Generate a male dwarf firstname",
 )
 def gen_dwarf_male_firstname():
+    create_random_gen_log("Gen male dwarf fname")
     return f'{random.choice(data_dict["data"]["dwarf"]["names"]["male_name_prefix"])}{random.choice(data_dict["data"]["dwarf"]["names"]["male_name_suffix"])}'
 
 
@@ -98,6 +107,7 @@ def gen_dwarf_male_firstname():
     description="Generate a female dwarf firstname",
 )
 def gen_dwarf_female_firstname():
+    create_random_gen_log("Gen female dwarf fname")
     return f'{random.choice(data_dict["data"]["dwarf"]["names"]["female_name_prefix"])}{random.choice(data_dict["data"]["dwarf"]["names"]["female_name_suffix"])}'
 
 
@@ -107,6 +117,7 @@ def gen_dwarf_female_firstname():
     description="Generate a dwaft lastname",
 )
 def gen_dwarf_lastname():
+    create_random_gen_log("Gen dwarf lname")
     return f'{random.choice(data_dict["data"]["dwarf"]["names"]["lastname_firstword"]).capitalize()}{random.choice(data_dict["data"]["dwarf"]["names"]["lastname_secondword"])}'
 
 
@@ -116,6 +127,7 @@ def gen_dwarf_lastname():
     description="Generate a orc male name",
 )
 def gen_orc_male_name():
+    create_random_gen_log("Gen male orc name")
     return random.choice(data_dict["data"]["orc"]["names"]["male_name"])
 
 
@@ -125,41 +137,49 @@ def gen_orc_male_name():
     description="Generate a orc female name",
 )
 def gen_orc_female_name():
+    create_random_gen_log("Gen female orc name")
     return random.choice(data_dict["data"]["orc"]["names"]["female_name"])
 
 
 @router.get("/human-location", status_code=200, description="Generate human locations")
 def gen_human_location():
+    create_random_gen_log("Gen human loc name")
     return f'{random.choice(data_dict["data"]["human"]["locations"]["location_word_prefix"]).capitalize()}{random.choice(data_dict["data"]["human"]["locations"]["location_word_suffix"])}'
 
 
 @router.get("/elf-location", status_code=200, description="Generate elf locations")
 def gen_elf_location():
+    create_random_gen_log("Gen elf loc name")
     return f'{random.choice(data_dict["data"]["elf"]["locations"]["location_word_prefix"]).capitalize()}{random.choice(data_dict["data"]["elf"]["locations"]["location_word_middle"])}{random.choice(data_dict["data"]["elf"]["locations"]["location_word_suffix"])}'
 
 
 @router.get("/dwarf-location", status_code=200, description="Generate dwarf locations")
 def gen_dwarf_location():
+    create_random_gen_log("Gen dwarf loc name")
     return f'{random.choice(data_dict["data"]["dwarf"]["locations"]["location_word_prefix"]).capitalize()}{random.choice(data_dict["data"]["dwarf"]["locations"]["location_word_middle"])}{random.choice(data_dict["data"]["dwarf"]["locations"]["location_word_suffix"])}'
 
 
 @router.get("/orc-location", status_code=200, description="Generate orc locations")
 def gen_orc_location():
+    create_random_gen_log("Gen orc loc name")
     return f'{random.choice(data_dict["data"]["orc"]["locations"]["location_word_firstix"]).capitalize()}{random.choice(data_dict["data"]["orc"]["locations"]["location_word_secondtix"])}{random.choice(data_dict["data"]["orc"]["locations"]["location_word_thirdtix"])}{random.choice(data_dict["data"]["orc"]["locations"]["location_word_fourthix"])}'
 
 
 @router.get("/class", status_code=200, description="Generate Class")
 def gen_class():
+    create_random_gen_log("Gen class name")
     return f'{random.choice(data_dict["data"]["class"])}'
 
 
 @router.get("/npc", status_code=200, description="Generate NPC")
 def gen_npc():
+    create_random_gen_log("Gen npc name")
     return f'{random.choice(data_dict["data"]["npc"])}'
 
 
 @router.get("/faction", status_code=200, description="Generate Faction")
 def gen_faction():
+    create_random_gen_log("Gen faction name")
     return f'{random.choice(data_dict["data"]["factions"]["faction_firstix"]).capitalize()}{random.choice(data_dict["data"]["factions"]["faction_secondtix"])}{random.choice(data_dict["data"]["factions"]["faction_thirdtix"])}{random.choice(data_dict["data"]["factions"]["faction_fourthix"])}{random.choice(data_dict["data"]["factions"]["faction_fifthix"])} {random.choice(data_dict["data"]["factions"]["faction_type"])}'
 
 
@@ -208,9 +228,11 @@ def gen_background_story(request: StoryGen):
         f"{generated_antagonist_story} "
     )
 
+    create_random_gen_log("Gen created bgstory")
     return gen_background_story
 
 
 @router.get("/title", status_code=200, description="Generate a story-title")
 def gen_story_title():
+    create_random_gen_log("Gen title")
     return random.choice(data_dict["data"]["title_gen"])

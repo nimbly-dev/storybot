@@ -1,0 +1,2 @@
+2021-07-27 18:09:20.983415: User hello has been created
+2021-07-27 18:09:20.983415: User hello details has been accessed
