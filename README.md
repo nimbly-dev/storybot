@@ -26,4 +26,4 @@ APPDEVCS Project using FastAPI as backend
         - Users has two filter options: Popular and Most Recent
         - Can share the generated background story from his background story list
         - Can read other users shared background story
-        - User can like or dislike the shared background story
+        - User can like or dislike the shared background story (TODO)
