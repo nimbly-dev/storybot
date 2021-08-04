@@ -23,7 +23,7 @@ APPDEVCS Project using FastAPI as backend
 
     4. User sharing of saved character background story (NEEDS ACCOUNT)
         - Users can access the shared background story list
-        - Users has two filter options: Popular and Most Recent
+        - Users has two filter options: Popular and Most Recent (TODO)
         - Can share the generated background story from his background story list
         - Can read other users shared background story
-        - User can like or dislike the shared background story
+        - User can like or dislike the shared background story (TODO)
