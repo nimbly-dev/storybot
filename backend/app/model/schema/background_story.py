@@ -1,3 +1,4 @@
+from app.model.db_models import User
 from typing import List, Optional
 import typing
 from pydantic import BaseModel, fields
@@ -20,6 +21,10 @@ class BackgroundStory(BaseModel):
     body: str
     character_name: str
     is_shared: bool
+    # user_likers: List[User] = []
+
+    class Config:
+        orm_mode = True
 
 
 # Schema for showing all background story of user
@@ -62,5 +67,6 @@ class ShowBackgroundStory(BaseModel):
     character_name: str
     is_shared: bool
 
+    # likes_list : List[User] = []
     class Config:
         orm_mode = True

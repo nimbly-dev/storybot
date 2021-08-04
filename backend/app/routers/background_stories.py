@@ -1,3 +1,4 @@
+import sqlalchemy
 from app.logs.Logging import create_background_story_log
 from fastapi import APIRouter, HTTPException, status
 from fastapi.params import Depends
@@ -201,6 +202,107 @@ def delete_background_story(
     db.commit()
     create_background_story_log(f'User with {current_user.id} id has deleted bgstory id {id}')
     return {"Success": "Background story with id {id} has been deleted"}
+
+
+# Like the story by id
+@router.post(
+    "/like/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    description="Like the shared story"
+)
+def like_story(
+    id,
+    db: Session = Depends(database.get_db),
+    current_user: User = Depends(oauth2.get_current_user)
+):
+    try:
+        background_story = db.query(db_models.BackgroundStory).filter(
+            db_models.BackgroundStory.id == id
+        )
+        if not background_story.first():
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Background story with id {id} is not found",
+            )
+        if background_story.first().is_shared == False:
+            create_background_story_log(f'User with id {current_user.id} has illegally accessed bgstory with id {id}')
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"The story is not shared",
+            )
+        new_like_list = db_models.Likes_list(
+            user_id = current_user.id,
+            background_story_id = id
+        )
+        db.add(new_like_list)
+        db.commit()
+        db.refresh(new_like_list)
+        return {"Liked": f"{current_user.username} has liked background story with id {id} "}
+    except sqlalchemy.exc.IntegrityError:
+        raise HTTPException(
+            status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
+            detail=f"User with id {current_user.id} already liked background story with id {id}"
+        )
+
+# Get current likes of the story by id
+@router.get(
+    "/like/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    description="Get likes of the shared story"
+)
+def get_likes_of_story(
+    id,
+    db: Session = Depends(database.get_db),
+    current_user: User = Depends(oauth2.get_current_user)
+):
+    count_likes = list (
+        db.query(db_models.Likes_list.background_story_id)
+                .filter(db_models.Likes_list.background_story_id == id)
+    )
+        # .filter(db_models.Likes_list.background_story_id == id)
+        # .first()
+    if not count_likes:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Background story with id {id} is not found",
+        )
+    # if likes_list.first().is_shared == False:
+    #     create_background_story_log(f'User with id {current_user.id} has illegally accessed bgstory with id {id}')
+    #     raise HTTPException(
+    #         status_code=status.HTTP_403_FORBIDDEN,
+    #         detail=f"The story is not shared",
+    #     )
+    return len(count_likes)
+    
+@router.delete(
+    "/like/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    description="Unlike the story"
+)
+def unlike_story(
+    id,
+    db: Session = Depends(database.get_db),
+    current_user: User = Depends(oauth2.get_current_user)
+):
+    liked_background_story = db.query(db_models.Likes_list).filter(db_models.Likes_list.user_id == id).first()
+
+    if not liked_background_story :
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Background story with id {id} not found",
+        )
+    # if current_user.id != liked_background_story.user_id:
+    #     create_background_story_log(f'User with id {current_user.id} has illegally accessed bgstory with id {id}')
+    #     raise HTTPException(
+    #         status_code=status.HTTP_403_FORBIDDEN,
+    #         detail=f"You do not have access to this background story",
+    #     )
+    
+
+    liked_background_story.delete(synchronize_session=False)
+    db.commit()
+    # create_background_story_log(f'User with {current_user.id} id has deleted bgstory id {id}')
+    return {"Success": "Unlike background story with id {id} has been deleted"}
 
 
 # Copy background story by id

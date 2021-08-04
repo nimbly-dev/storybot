@@ -3,3 +3,22 @@
 2021-07-27 18:09:20.983415: 1 has updated bgstory 1
 2021-07-27 18:09:20.983415: 1 has accessed all shared background story
 2021-07-27 18:09:20.983415: 1 has accessed bgstory 1
+2021-08-03 16:06:41.637747: 1 has created new bgstory
+2021-08-03 16:13:57.236106: 1 has created new bgstory
+2021-08-03 18:15:25.879976: 1 has created new bgstory
+2021-08-03 18:17:53.617932: 1 has accessed bgstory 1
+2021-08-03 18:48:27.662236: 1 has accessed bgstory 1
+2021-08-03 20:14:39.494452: 1 has created new bgstory
+2021-08-03 20:43:32.323721: 1 has created new bgstory
+2021-08-03 20:44:10.157070: 1 has created new bgstory
+2021-08-03 20:44:40.478002: 1 has created new bgstory
+2021-08-03 20:46:00.138494: 1 has created new bgstory
+2021-08-03 20:46:00.138494: 1 has created new bgstory
+2021-08-03 20:46:41.165785: 1 has created new bgstory
+2021-08-03 20:49:09.396480: 1 has created new bgstory
+2021-08-03 20:50:22.877074: 1 has created new bgstory
+2021-08-03 20:50:22.877074: 1 has created new bgstory
+2021-08-03 20:51:11.244504: 1 has created new bgstory
+2021-08-03 20:52:55.133550: 1 has created new bgstory
+2021-08-03 20:56:44.388891: 1 has created new bgstory
+2021-08-04 20:27:00.386030: User with id 2 has illegally accessed bgstory with id 1

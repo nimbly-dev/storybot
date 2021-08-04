@@ -26,8 +26,12 @@ def create_user(request: CreateNewUser, db: Session = Depends(database.get_db)):
         password=hashing.Hash.bcrpyt(request.password),
         email=request.email,
     )
+    # new_likes_list = db_models.Likes_list(
+    #     user_id = new_user.id
+    # )
     create_users_log(f'User {request.username} has been created')
     db.add(new_user)
+    # db.add(new_likes_list)
     db.commit()
     db.refresh(new_user)
     return new_user
